@@ -1,0 +1,34 @@
+{
+  "name": "mongo",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env _ENV=local bun run --watch ./index.ts",
+    "build": "rm -rf ./dist/server && bun build --compile --target=bun-linux-x64 --minify --sourcemap --bytecode ./index.ts --outfile dist/server"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/figlet": "^1.7.0",
+    "cross-env": "^7.0.3",
+    "prisma": "^6.1.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.1.0",
+    "@elysiajs/swagger": "^1.2.0",
+    "@mongo/core": "workspace: *",
+    "@mongo/extends": "workspace: *",
+    "@mongo/types": "workspace: *",
+    "@mongo/utils": "workspace: *",
+    "@prisma/client": "^6.1.0",
+    "elysia": "1.1.27",
+    "elysia-decorators": "^1.0.2",
+    "figlet": "^1.8.0",
+    "glob": "^11.0.1"
+  }
+}
