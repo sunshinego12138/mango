@@ -1,8 +1,8 @@
-import {Mongo} from '@mongo/types'
+import { Mongo } from '@mongo/types'
 
 export default abstract class DemoService {
-  static async queryUserList({ db, loadEnv }: Mongo.Context) {
-    const users = await db.user.findMany()
+  static async queryUserList({ prisma, loadEnv }: Mongo.Context) {
+    const users = await prisma.user.findMany()
     return users
   }
 }
