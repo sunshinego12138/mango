@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env _ENV=local bun run --watch ./index.ts",
-    "test": "bun run --watch ./test/controller.test.ts",
+    "test": "bun run --watch ./test/server.test.ts",
     "build:linux": "rm -rf ./dist/server && bun build --compile --target=bun-linux-x64 --minify --sourcemap --bytecode ./index.ts --outfile dist/server"
   },
   "workspaces": [

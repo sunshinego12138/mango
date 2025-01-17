@@ -11,4 +11,11 @@ export default class DemoController {
   login({ query }: Context) {
     return query
   }
+
+  @Get('/test', {
+    query: querySchema,
+  })
+  test({ query }: Context<'query', typeof querySchema.static>) {
+    return query.id
+  }
 }
