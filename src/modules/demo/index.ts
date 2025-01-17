@@ -1,25 +1,14 @@
 import { Elysia, t } from 'elysia'
 import DemoService from './view'
 import { querySchema } from './schema'
+import { type Context, Controller, Get } from 'packages/mongo-core'
 
-const demo = new Elysia({
-  prefix: '/user',
-  name: '测试模块',
-})
-  .get('/', DemoService.queryUserList, {})
-  .get(
-    '/id/:id',
-    ({ params, query }) => {
-      return params
-    },
-    {
-      params: querySchema,
-    },
-  )
-  .post('/body', ({ body }) => body, {
-    body: t.Object({
-      name: t.String(),
-    }),
+@Controller()
+export default class DemoController {
+  @Get('/login', {
+    query: querySchema,
   })
-
-export default demo
+  login({ query }: Context) {
+    return query
+  }
+}

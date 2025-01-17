@@ -4,7 +4,7 @@ import { swagger, type ElysiaSwaggerConfig } from '@elysiajs/swagger'
 import { DBExtends, swiggerExtends } from '@mongo/extends'
 import type { Mongo } from '@mongo/types'
 import { loadEnv } from '@mongo/utils'
-import controllerLoader from './loader/serve'
+import controllerLoader from './loader/controller'
 import optionsInit from './loader/options'
 import { infoLoader } from './loader/info'
 import { swaggerLoader } from './loader/swagger'
@@ -37,11 +37,12 @@ const init = (options: Mongo.MongoStartOptions) => {
 }
 
 export default { init }
+export * from './decorators'
 
 export type App = ReturnType<typeof init>
 export type Context = InferContext<App>
 export type Handler = InferHandler<App>
 // app.all方法第三个参数的类型
 type AppAllType = ReturnType<typeof init>['all']
-// 提取第三个参数的类型
-type ThirdParameterType = Parameters<AppAllType>[2]
+// 提取每个方法中第三个类型
+export type ThirdParameterType = Parameters<AppAllType>[2]
