@@ -8,9 +8,9 @@ import figlet from 'figlet'
  * @param options
  */
 export const infoLoader = (app: Mongo.App, options: Mongo.MongoStartOptions) => {
-  const logo = figlet.textSync(`${options.name?.replace(/[\u4e00-\u9fa5]/g, '')}   started`)
-  console.log(logo)
   app.onStart(({ server }) => {
+    const logo = figlet.textSync(`${options.name?.replace(/[\u4e00-\u9fa5]/g, '')}   started`)
+    console.log(logo)
     console.log(`version ${options.version}`)
     console.log('')
     console.log(`-- [start] name: ${options.name}`)

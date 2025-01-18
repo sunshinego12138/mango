@@ -31,6 +31,7 @@ export default { init }
 export * from './decorators'
 
 export type App = ReturnType<typeof init>
+// export type _Context = InferContext<App> & { [key: string]: any }
 export type _Context = InferContext<App>
 /** 每个方法的类型，这个目前没有用到 */
 export type Handler = InferHandler<App>
@@ -49,7 +50,7 @@ export type ThirdParameterType = Parameters<AppAllType>[2]
  * test({ query }: Context<'query', typeof querySchema.static>) {
  *   return query
  * }
- * 
+ *
  * @Get('/test2')
  * test2({ query }: Context) {
  *   return query

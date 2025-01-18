@@ -1,7 +1,7 @@
 import { Elysia, t } from 'elysia'
 import DemoService from './view'
-import { querySchema } from './schema'
-import { type Context, Controller, Get, Provider } from 'packages/mongo-core'
+import { paramsSchema, querySchema } from './schema'
+import { type Context, Controller, Get, Provider } from '@mongo/core'
 import { TestServe } from './serve'
 
 @Controller()
@@ -27,4 +27,12 @@ export default class DemoController {
   test({ query }: Context<'query', typeof querySchema.static>) {
     return query.id
   }
+
+  @Get('/param/:id/:name', {
+    params: paramsSchema
+  })
+  param({ params }: Context<'params', typeof paramsSchema.static>) {
+    return params
+  }
 }
+
