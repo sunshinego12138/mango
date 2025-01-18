@@ -17,6 +17,7 @@ export enum MethodTyp {
 const method = (method: any) => {
   return (route: string, option: ThirdParameterType = {}) => {
     return (target: any, key: string, descriptor: PropertyDescriptor) => {
+      
       Reflect.defineMetadata(
         DecoratorKey.Method,
         {
@@ -24,7 +25,9 @@ const method = (method: any) => {
           key: DecoratorKey.Method,
           route,
           option,
-          fn: descriptor.value,
+          // fn: descriptor.value,
+          // fn: (item1: any,item2=target) => descriptor.value(item1, item2),
+          fn: target[key].bind(target)
         },
         target,
         key,

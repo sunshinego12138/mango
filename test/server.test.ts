@@ -1,6 +1,6 @@
 import { DecoratorKey, Injectable, Provider } from '@mongo/core'
 
-@Injectable('test')
+// @Injectable('test')
 class Serve {
   age: number = 1
   name: string = '张三'

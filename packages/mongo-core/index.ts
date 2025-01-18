@@ -8,6 +8,7 @@ import controllerLoader from './loader/controller'
 import optionsInit from './loader/options'
 import { infoLoader } from './loader/info'
 import { swaggerLoader } from './loader/swagger'
+import serveLoader from './loader/serve'
 
 /**
  * 初始化框架
@@ -18,21 +19,11 @@ const init = (options: Mongo.MongoStartOptions) => {
   optionsInit(options)
   const app = new Elysia().use(DBExtends).use(controllerLoader(options)).decorate('loadEnv', loadEnv())
 
+  // serveLoader(options)
   // 输出启动信息
   infoLoader(app, options)
   // 加载swagger文档
   swaggerLoader(app, options)
-
-  // app.onError(({ code, error }) => {
-  //   if (code === "VALIDATION") {
-  //     const msg = JSON.parse(error.message)
-  //     return msg.error
-  //     // return new Response(JSON.stringify(msg.errors))
-  //   }
-  //   console.log('error', error, code)
-  //   return new Response(error.toString())
-  // })
-
   return app
 }
 

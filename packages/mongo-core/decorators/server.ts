@@ -26,6 +26,8 @@ export const Injectable =
 
 /**
  * Provider 获取注入值
+ * 这个装饰器暂时没有用了，这个装饰器会将所有的属性都注入进去，无论有没有被Injectable或者Controller装饰
+ * 现在实例化实在serveLoader中做的 
  */
 export const Provider =
   (key: any = undefined) =>
@@ -43,8 +45,6 @@ export const Provider =
         // 如果传了个类进来
         instanceClass = key
       } else {
-        console.log('key', key)
-        console.log('map', InjectMap)
         // 如果传了个字符串进来
         instanceClass = InjectMap.get(key)
       }
@@ -63,4 +63,13 @@ export const Provider =
       //   target[propertyKey] = new instanceClass()
       // }
     }
+    Reflect.defineMetadata(
+      DecoratorKey.Provider,
+      {
+        target,
+        propertyKey,
+        key: DecoratorKey.Provider,
+      },
+      target,
+    )
   }

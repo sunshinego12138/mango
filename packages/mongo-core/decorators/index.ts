@@ -8,7 +8,8 @@ export enum DecoratorKey {
   Method = 'method',
   /** 服务 */
   Injectable = 'injectable',
-  /**  */
+  /** 注入 */
+  Provider = 'provider'
 }
 export * from './controller'
 export * from './method'
