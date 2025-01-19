@@ -1,4 +1,4 @@
-import { Controller, Get, Provider } from '@mongo/core'
+import { Controller, Get, Autowired } from '@mongo/core'
 import { paramsSchema, querySchema } from './schema'
 import { TestServe } from './serve'
 import type { Mongo } from '@mongo/types'
@@ -11,7 +11,7 @@ import type { Mongo } from '@mongo/types'
   },
 })
 export default class DemoController {
-  @Provider()
+  @Autowired()
   serve: TestServe
 
   @Get('/login', {

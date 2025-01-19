@@ -1,4 +1,4 @@
-import { DecoratorKey, Injectable, Provider } from '@mongo/core'
+import { DecoratorKey, Injectable, Autowired } from '@mongo/core'
 
 // @Injectable('test')
 class Serve {
@@ -13,10 +13,10 @@ class Serve2 {
 
 @Injectable()
 class Test {
-  @Provider()
+  @Autowired()
   server: Serve
 
-  @Provider()
+  @Autowired()
   server2: Serve2
 
   age: number = 1

@@ -26,10 +26,10 @@ export const Injectable =
   }
 
 /**
- * Provider 获取注入值
- * 暂时所有的类都可以被注入，只要被Provider注入就可以
+ * Autowired 获取注入值
+ * 暂时所有的类都可以被注入，只要被Autowired装饰就可以
  */
-export const Provider =
+export const Autowired =
   (key: any = undefined) =>
   (target: any, propertyKey: string) => {
     let instanceClass
@@ -64,11 +64,11 @@ export const Provider =
       // }
     }
     Reflect.defineMetadata(
-      DecoratorKey.Provider,
+      DecoratorKey.Autowired,
       {
         target,
         propertyKey,
-        key: DecoratorKey.Provider,
+        key: DecoratorKey.Autowired,
       },
       target,
     )

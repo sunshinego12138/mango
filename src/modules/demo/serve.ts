@@ -1,7 +1,7 @@
-import { Provider } from '@mongo/core'
+import { Autowired } from '@mongo/core'
 
 export class TestServe {
-  @Provider()
+  @Autowired()
   serve: Server2
 
   test: string = 'test'

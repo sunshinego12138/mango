@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Provider, Put } from '@mongo/core'
+import { Controller, Delete, Get, Post, Autowired, Put } from '@mongo/core'
 import type { Mongo } from '@mongo/types'
 import { DeleteUserSchema, UserSchema } from './user.schema'
 import { t } from 'elysia'
@@ -12,7 +12,7 @@ import { UserService } from './user.service'
   },
 })
 export default class UserController {
-  @Provider()
+  @Autowired()
   serve: UserService
 
   @Get('/list', {

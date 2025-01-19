@@ -1,9 +1,9 @@
-import { Prisma } from '@/db'
+import { Prisma } from '@/prisma'
 import { UserSchema } from './user.schema'
-import { Provider } from '@mongo/core'
+import { Autowired } from '@mongo/core'
 
 export class UserService {
-  @Provider()
+  @Autowired()
   prisma: Prisma
 
   async getList(query: typeof UserSchema.static) {
