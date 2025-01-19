@@ -15,7 +15,7 @@ import serveLoader from './loader/serve'
  * @param options
  * @returns
  */
-const init = (options: Mongo.MongoStartOptions) => {
+export const init = (options: Mongo.MongoStartOptions) => {
   optionsInit(options)
   const app = new Elysia().use(DBExtends).use(controllerLoader(options)).decorate('loadEnv', loadEnv())
   // serveLoader(options)

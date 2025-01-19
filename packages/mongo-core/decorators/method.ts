@@ -4,6 +4,23 @@ import 'reflect-metadata'
 import { DecoratorKey } from '..'
 import type { Mongo } from '@mongo/types'
 
+// 请求装饰器元数据类型
+export interface MethodMetadata {
+  method: MethodTyp
+  key: string
+  // option: ThirdParameterType
+  option: Mongo.ThirdParameterType
+  route: string
+  fn: Function
+}
+
+export interface WebSocketMetadata {
+  key: string
+  option: Mongo.WebSocketMethodType
+  route: string
+  fn: Function
+}
+
 // 请求类型
 export enum MethodTyp {
   Get = 'get',
@@ -71,3 +88,19 @@ export const Delete = method(MethodTyp.DELETE)
  * @param route 路由路径
  */
 export const All = method(MethodTyp.ALL)
+
+export const WebSocket =
+  (route: string, option: Omit<Mongo.WebSocketMethodType, 'message'> = {}) =>
+    (target: any, key: string, descriptor: PropertyDescriptor) => {
+    Reflect.defineMetadata(
+      DecoratorKey.WebSocket,
+      {
+        option,
+        route,
+        fn: target[key].bind(target),
+        key: DecoratorKey.WebSocket,
+      },
+      target,
+      key
+    )
+  }

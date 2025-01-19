@@ -44,6 +44,13 @@ export declare namespace Mongo {
   type _Context = InferContext<App>
   type Handler = InferHandler<App>
   type AppAllType = ReturnType<typeof MongoFunc.init>['all']
+
+  // websocket方法类型
+  export type WebSocketMethodType = Parameters<ReturnType<typeof MongoFunc.init>['ws']>[1]
+  // websocket方法中message方法的类型
+  type WebSocketMessageMethodType = WebSocketMethodType['message']
+  // websocket方法中message方法中第一个参数ws的类型
+  export type WebSocket = Parameters<Exclude<WebSocketMessageMethodType, undefined>>[0]
   // 提取每个方法中第三个类型
   export type ThirdParameterType = Parameters<AppAllType>[2]
   /**

@@ -2,7 +2,7 @@ import { type Mongo } from '@mongo/types'
 import Elysia from 'elysia'
 import { sep, resolve } from 'path'
 import { globSync } from 'glob'
-import { DecoratorKey, type MethodMetadata } from '..'
+import { DecoratorKey, type MethodMetadata, type WebSocketMetadata } from '..'
 
 /**
  * 加载controller
@@ -18,7 +18,7 @@ const controllerLoader = async (options: Mongo.MongoStartOptions) => {
   })
   for (const moduleKey of modules) {
     const module = await import(moduleKey)
-    // 有默认导出才可以
+    // Controller必须默认导出并且在index.ts中才生效
     if (module.default) {
       let controller = Reflect.getMetadata(DecoratorKey.Controller, module.default)
       // 注册控制器
@@ -34,11 +34,27 @@ const controllerLoader = async (options: Mongo.MongoStartOptions) => {
           if (key === 'constructor') {
             return
           }
+          /** 挂载方法 */
           // 挂载到方法上的属性，也就是方法装饰器设置的值
-          const option: MethodMetadata = Reflect.getMetadata(DecoratorKey.Method, Prototype, key)
+          const methods: MethodMetadata = Reflect.getMetadata(DecoratorKey.Method, Prototype, key)
+          // const websocket
           // 只有被方法装饰器装饰的方法才会注册到elysia实例上
-          if (option && option.key === DecoratorKey.Method && option.method && typeof option.fn === 'function') {
-            router[option.method](option.route, option.fn, option.option)
+          if (methods && methods.key === DecoratorKey.Method && methods.method && typeof methods.fn === 'function') {
+            router[methods.method](methods.route, methods.fn, methods.option)
+          }
+
+          /** 挂载websocket方法 */
+          const websocket: WebSocketMetadata = Reflect.getMetadata(DecoratorKey.WebSocket, Prototype, key)
+          if (
+            websocket &&
+            websocket.key === DecoratorKey.WebSocket &&
+            websocket.fn &&
+            typeof websocket.fn === 'function'
+          ) {
+            router['ws'](websocket.route, {
+              ...(websocket.option || {}),
+              message: websocket.fn,
+            })
           }
           app.use(router)
         })

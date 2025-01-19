@@ -1,16 +1,5 @@
 import type { ElysiaConfig } from 'elysia'
 import { DecoratorKey, MethodTyp } from '..'
-import type { Mongo } from '@mongo/types'
-
-// 请求装饰器元数据类型
-export interface MethodMetadata {
-  method: MethodTyp
-  key: string
-  // option: ThirdParameterType
-  option: Mongo.ThirdParameterType
-  route: string
-  fn: Function
-}
 
 /**
  * Controller 控制器

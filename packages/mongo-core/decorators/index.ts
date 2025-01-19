@@ -8,6 +8,8 @@ export enum DecoratorKey {
   Method = 'method',
   /** 服务 */
   Injectable = 'injectable',
+  /** websocket方法 */
+  WebSocket = 'websocket',
   /** 自动注入 */
   Autowired = 'autowired'
 }

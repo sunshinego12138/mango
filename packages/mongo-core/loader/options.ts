@@ -11,6 +11,7 @@ const optionsInit = (options: Mongo.MongoStartOptions) => {
   options.baseDir = process.cwd()
   options.businessPath = resolve(options.baseDir || '', `.${sep}${options.businessPath || 'src'}`)
   options.controllerPath = resolve(options.businessPath, `.${sep}${options.controllerPath || 'modules'}`)
+  return options
 }
 
 export default optionsInit

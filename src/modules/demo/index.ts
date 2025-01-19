@@ -1,7 +1,8 @@
-import { Controller, Get, Autowired } from '@mongo/core'
+import { Controller, Get, Autowired, WebSocket } from '@mongo/core'
 import { paramsSchema, querySchema } from './schema'
 import { TestServe } from './serve'
 import type { Mongo } from '@mongo/types'
+import { t } from 'elysia'
 @Controller({
   name: '测试模块',
   prefix: '/test',
@@ -38,5 +39,15 @@ export default class DemoController {
   })
   param({ params }: Mongo.Context<'params', typeof paramsSchema.static>) {
     return params
+  }
+
+  @WebSocket('/ws', {
+    body: t.Object({
+      name: t.String(),
+      age: t.Number(),
+    }),
+  })
+  websocket(ws: Mongo.WebSocket, message: any) {
+    ws.send(message)
   }
 }
