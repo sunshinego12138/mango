@@ -1,10 +1,15 @@
-import { Elysia, t } from 'elysia'
-import DemoService from './view'
+import { Controller, Get, Provider } from '@mongo/core'
 import { paramsSchema, querySchema } from './schema'
-import { type Context, Controller, Get, Provider } from '@mongo/core'
 import { TestServe } from './serve'
-
-@Controller()
+import type { Mongo } from '@mongo/types'
+@Controller({
+  name: '测试模块',
+  prefix: '/test',
+  detail: {
+    description: '这是一段测试模块的备注',
+    tags: ['测试'],
+  },
+})
 export default class DemoController {
   @Provider()
   serve: TestServe
@@ -12,11 +17,11 @@ export default class DemoController {
   @Get('/login', {
     query: querySchema,
   })
-  login({ query }: Context) {
+  login({ query }: Mongo.Context) {
     return new Response(JSON.stringify(this.serve.serve), {
       status: 200, // HTTP 状态码
       headers: {
-        'Content-Type': 'application/json', // 设置内容类型为 JSON
+        'Content-Type': 'application/json',
       },
     })
   }
@@ -24,15 +29,14 @@ export default class DemoController {
   @Get('/test', {
     query: querySchema,
   })
-  test({ query }: Context<'query', typeof querySchema.static>) {
+  test({ query }: Mongo.Context<'query', typeof querySchema.static>) {
     return query.id
   }
 
   @Get('/param/:id/:name', {
-    params: paramsSchema
+    params: paramsSchema,
   })
-  param({ params }: Context<'params', typeof paramsSchema.static>) {
+  param({ params }: Mongo.Context<'params', typeof paramsSchema.static>) {
     return params
   }
 }
-

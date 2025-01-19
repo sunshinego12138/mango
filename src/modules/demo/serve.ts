@@ -1,8 +1,6 @@
-import { Injectable, Provider } from "packages/mongo-core";
+import { Provider } from '@mongo/core'
 
-// @Injectable()
 export class TestServe {
-
   @Provider()
   serve: Server2
 

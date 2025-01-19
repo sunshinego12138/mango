@@ -12,7 +12,6 @@ import { DecoratorKey, type MethodMetadata } from '..'
 const controllerLoader = async (options: Mongo.MongoStartOptions) => {
   const app = new Elysia()
   // 获取controllerPath下所有的子控制器并注册
-
   const modules = globSync(resolve(options.controllerPath as string, `.${sep}**${sep}index.ts`), {
     ignore: ['**/node_modules/**'],
     windowsPathsNoEscape: true,
@@ -26,7 +25,7 @@ const controllerLoader = async (options: Mongo.MongoStartOptions) => {
       // 需要被Controller装饰器装饰的类才会注册到elysia实例上
       if (controller && controller.key === DecoratorKey.Controller) {
         // 挂载到类上的属性，也就是controller设置的值
-        const router: any = new Elysia(controller || {})
+        const router: any = new Elysia(controller?.option || {})
 
         const Prototype = module.default.prototype
 

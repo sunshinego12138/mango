@@ -1,7 +1,8 @@
 // 创建工厂
 import type { ElysiaConfig } from 'elysia'
 import 'reflect-metadata'
-import { DecoratorKey, type ThirdParameterType } from '..'
+import { DecoratorKey } from '..'
+import type { Mongo } from '@mongo/types'
 
 // 请求类型
 export enum MethodTyp {
@@ -15,9 +16,8 @@ export enum MethodTyp {
 }
 
 const method = (method: any) => {
-  return (route: string, option: ThirdParameterType = {}) => {
+  return (route: string, option: Mongo.ThirdParameterType = {}) => {
     return (target: any, key: string, descriptor: PropertyDescriptor) => {
-      
       Reflect.defineMetadata(
         DecoratorKey.Method,
         {
@@ -27,7 +27,7 @@ const method = (method: any) => {
           option,
           // fn: descriptor.value,
           // fn: (item1: any,item2=target) => descriptor.value(item1, item2),
-          fn: target[key].bind(target)
+          fn: target[key].bind(target),
         },
         target,
         key,

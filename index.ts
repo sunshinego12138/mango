@@ -1,12 +1,6 @@
-// import app from './src/app'
+import MongoCore from '@mongo/core'
 
-// app.listen(8000, ({ hostname, port }) => {
-//   console.log(`🦊 running at http://${hostname}:${port}`)
-// })
-
-import Mongo from '@mongo/core'
-
-Mongo.init({
+MongoCore.init({
   businessPath: 'src',
   controllerPath: 'modules',
   name: 'Mongo elysia',

@@ -5,7 +5,12 @@
   "scripts": {
     "dev": "cross-env _ENV=local bun run --watch ./index.ts",
     "test": "bun run --watch ./test/server.test.ts",
-    "build:linux": "rm -rf ./dist/server && bun build --compile --target=bun-linux-x64 --minify --sourcemap --bytecode ./index.ts --outfile dist/server"
+    "build:linux": "rm -rf ./dist/server && bun build --compile --target=bun-linux-x64 --minify --sourcemap --bytecode ./index.ts --outfile dist/server",
+    "db:dev": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:reset": "prisma migrate reset",
+    "db:introspect": "prisma introspect",
+    "db:studio": "prisma studio"
   },
   "workspaces": [
     "packages/*"
@@ -14,7 +19,7 @@
     "@types/bun": "latest",
     "@types/figlet": "^1.7.0",
     "cross-env": "^7.0.3",
-    "prisma": "^6.1.0"
+    "prisma": "^6.2.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

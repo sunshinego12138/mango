@@ -9,7 +9,11 @@
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    // 允许在类中定义变量不用初始化值
     "strictPropertyInitialization": false,
+    // 导入类型的时候前面必须添加type
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

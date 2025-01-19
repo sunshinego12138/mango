@@ -4,7 +4,8 @@ import { DecoratorKey } from '.'
 const InjectMap: Map<any, any> = new Map()
 
 /**
- * Controller 注入装饰器
+ *  注入装饰器
+ * 这个暂时无用
  * @returns
  */
 export const Injectable =
@@ -26,8 +27,7 @@ export const Injectable =
 
 /**
  * Provider 获取注入值
- * 这个装饰器暂时没有用了，这个装饰器会将所有的属性都注入进去，无论有没有被Injectable或者Controller装饰
- * 现在实例化实在serveLoader中做的 
+ * 暂时所有的类都可以被注入，只要被Provider注入就可以
  */
 export const Provider =
   (key: any = undefined) =>
