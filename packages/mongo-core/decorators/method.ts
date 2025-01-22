@@ -3,6 +3,7 @@ import type { ElysiaConfig } from 'elysia'
 import 'reflect-metadata'
 import { DecoratorKey } from '..'
 import type { Mongo } from '@mongo/types'
+import type { CronConfig } from '@elysiajs/cron'
 
 // 请求装饰器元数据类型
 export interface MethodMetadata {
@@ -89,9 +90,15 @@ export const Delete = method(MethodTyp.DELETE)
  */
 export const All = method(MethodTyp.ALL)
 
+/**
+ * WebSocket装饰器
+ * @param route
+ * @param option
+ * @returns
+ */
 export const WebSocket =
   (route: string, option: Omit<Mongo.WebSocketMethodType, 'message'> = {}) =>
-    (target: any, key: string, descriptor: PropertyDescriptor) => {
+  (target: any, key: string, descriptor: PropertyDescriptor) => {
     Reflect.defineMetadata(
       DecoratorKey.WebSocket,
       {
@@ -101,6 +108,7 @@ export const WebSocket =
         key: DecoratorKey.WebSocket,
       },
       target,
-      key
+      key,
     )
   }
+

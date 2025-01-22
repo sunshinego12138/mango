@@ -2,7 +2,8 @@ import { type Mongo } from '@mongo/types'
 import Elysia from 'elysia'
 import { sep, resolve } from 'path'
 import { globSync } from 'glob'
-import { DecoratorKey, type MethodMetadata, type WebSocketMetadata } from '..'
+import { DecoratorKey, type CronMetadata, type MethodMetadata, type WebSocketMetadata } from '..'
+import { cron as cronExtends } from '@elysiajs/cron'
 
 /**
  * 加载controller
@@ -55,6 +56,18 @@ const controllerLoader = async (options: Mongo.MongoStartOptions) => {
               ...(websocket.option || {}),
               message: websocket.fn,
             })
+          }
+
+          /** 挂载cron方法 */
+          const cron: CronMetadata = Reflect.getMetadata(DecoratorKey.Cron, Prototype, key)
+          if (cron && cron.key === DecoratorKey.Cron && cron.fn && typeof cron.fn === 'function') {
+            // router['cron'](cron.route, cron.fn, cron.option)
+            router.use(
+              cronExtends({
+                ...cron.option,
+                run: cron.fn as any,
+              }),
+            )
           }
           app.use(router)
         })

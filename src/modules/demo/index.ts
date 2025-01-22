@@ -1,4 +1,4 @@
-import { Controller, Get, Autowired, WebSocket } from '@mongo/core'
+import { Controller, Get, Autowired, WebSocket, Cron } from '@mongo/core'
 import { paramsSchema, querySchema } from './schema'
 import { TestServe } from './serve'
 import type { Mongo } from '@mongo/types'
@@ -49,5 +49,19 @@ export default class DemoController {
   })
   websocket(ws: Mongo.WebSocket, message: any) {
     ws.send(message)
+  }
+
+  @Cron({
+    name: 'task1',
+    pattern: '*/5 * * * * *',
+  })
+  cronTask() {
+    console.log('任务1')
+  }
+
+  @Get('/stop/task')
+  stopTask({ stopCronTask }: Mongo.Context) {
+    stopCronTask('task1')
+    return '停止任务1'
   }
 }

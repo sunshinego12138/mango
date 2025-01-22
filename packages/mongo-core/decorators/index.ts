@@ -8,11 +8,14 @@ export enum DecoratorKey {
   Method = 'method',
   /** 服务 */
   Injectable = 'injectable',
+  /** 自动注入 */
+  Autowired = 'autowired',
   /** websocket方法 */
   WebSocket = 'websocket',
-  /** 自动注入 */
-  Autowired = 'autowired'
+  /** 定时任务 */
+  Cron = 'cron',
 }
 export * from './controller'
 export * from './method'
 export * from './server'
+export * from './cron'

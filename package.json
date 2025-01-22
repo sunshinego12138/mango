@@ -25,7 +25,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@elysiajs/cors": "^1.1.0",
+    "@elysiajs/cors": "^1.2.0",
+    "@elysiajs/cron": "^1.2.0",
     "@elysiajs/swagger": "^1.2.0",
     "@mongo/core": "workspace: *",
     "@mongo/extends": "workspace: *",

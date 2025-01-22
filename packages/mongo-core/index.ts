@@ -9,6 +9,7 @@ import optionsInit from './loader/options'
 import { infoLoader } from './loader/info'
 import { swaggerLoader } from './loader/swagger'
 import serveLoader from './loader/serve'
+import cors from '@elysiajs/cors'
 
 /**
  * 初始化框架
@@ -17,12 +18,33 @@ import serveLoader from './loader/serve'
  */
 export const init = (options: Mongo.MongoStartOptions) => {
   optionsInit(options)
-  const app = new Elysia().use(DBExtends).use(controllerLoader(options)).decorate('loadEnv', loadEnv())
+  const app = new Elysia()
+    .use(DBExtends)
+    .use(controllerLoader(options))
+    .decorate('env', loadEnv())
+    .derive(({ store }: any) => {
+      return {
+        /** 
+         * 停止定时任务
+         * @param taskName 任务名称
+         */
+        stopCronTask: (taskName: string) => {
+          const stopFunc = store?.cron?.[taskName]
+          if (stopFunc && stopFunc.stop) {
+            stopFunc.stop()
+          }
+        },
+      }
+    })
   // serveLoader(options)
   // 输出启动信息
   infoLoader(app, options)
   // 加载swagger文档
   swaggerLoader(app, options)
+  // 是否开启cors
+  if (options.cors) {
+    app.use(cors())
+  }
   return app
 }
 
