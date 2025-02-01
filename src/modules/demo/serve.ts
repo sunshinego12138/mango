@@ -1,7 +1,7 @@
-import { Autowired } from '@mango/core'
+import { Autowired, Injectable } from '@mango/core'
 
 export class TestServe {
-  @Autowired()
+  @Autowired
   serve: Server2
 
   test: string = 'test'

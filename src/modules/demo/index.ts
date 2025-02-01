@@ -1,4 +1,4 @@
-import { Controller, Get, Autowired, WebSocket, Cron } from '@mango/core'
+import { Controller, Get, Post, Put,Delete,All,Option, Patch,Custom, Autowired, WebSocket, Cron } from '@mango/core'
 import { paramsSchema, querySchema } from './schema'
 import { TestServe } from './serve'
 import type { Mongo } from '@mango/types'
@@ -12,7 +12,7 @@ import { t } from 'elysia'
   },
 })
 export default class DemoController {
-  @Autowired()
+  @Autowired
   serve: TestServe
 
   @Get('/login', {
@@ -37,8 +37,8 @@ export default class DemoController {
   @Get('')
   index(param: Mongo.Context<'redirect', any>) {
     // return 'index'
-    // return this.serve.test
-    return param
+    return this.serve.serve.name
+    // return param
   }
 
   @Get('/param/:id/:name', {
@@ -60,7 +60,7 @@ export default class DemoController {
 
   @Cron({
     name: 'task1',
-    pattern: '* * */5 * * *',
+    pattern: '*/20 * * * * *',
   })
   cronTask() {
     console.log('任务1')

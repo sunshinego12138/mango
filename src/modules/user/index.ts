@@ -12,7 +12,7 @@ import { UserService } from './user.service'
   },
 })
 export default class UserController {
-  @Autowired()
+  @Autowired
   serve: UserService
 
   @Get('/list', {

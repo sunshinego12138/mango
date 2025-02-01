@@ -1,5 +1,5 @@
 import type { Mongo } from '@mango/types'
-import { sep } from 'path'
+import { sep } from 'node:path'
 
 /**
  * 程序启动时输入信息
@@ -27,7 +27,7 @@ export const infoLoader = (app: Mongo.App, options: Mongo.MongoStartOptions) => 
     console.log(`-- [start] controllerPath: ${options.controllerPath?.split(sep).slice(-2).join('/')}`)
     console.log('')
     if (options.swagger) {
-      console.log(`🐑 Swagger UI: ${server?.url}${options.swagger.path || '/swagger'}`)
+      console.log(`🐑 Swagger UI: ${server?.url}${options.swagger.path || 'swagger'}`)
     }
     console.log(`🦊【${options.name}】running at ${server?.url}`)
   })

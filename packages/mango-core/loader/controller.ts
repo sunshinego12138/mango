@@ -1,6 +1,6 @@
 import { type Mongo } from '@mango/types'
 import Elysia from 'elysia'
-import { sep, resolve } from 'path'
+import { sep, resolve } from 'node:path'
 import { globSync } from 'glob'
 import { DecoratorKey, type CronMetadata, type MethodMetadata, type WebSocketMetadata } from '..'
 import { cron as cronExtends } from '@elysiajs/cron'
@@ -35,16 +35,25 @@ const controllerLoader = async (options: Mongo.MongoStartOptions) => {
           if (key === 'constructor') {
             return
           }
-          /** 挂载方法 */
+          /** 
+           * 挂载方法
+           */
           // 挂载到方法上的属性，也就是方法装饰器设置的值
           const methods: MethodMetadata = Reflect.getMetadata(DecoratorKey.Method, Prototype, key)
           // const websocket
           // 只有被方法装饰器装饰的方法才会注册到elysia实例上
           if (methods && methods.key === DecoratorKey.Method && methods.method && typeof methods.fn === 'function') {
-            router[methods.method](methods.route, methods.fn, methods.option)
+            if (methods.customMethod) {
+              // 自定义方法
+              router.route(methods.customMethod, methods.route, methods.fn, methods.option)
+            } else {
+              router[methods.method](methods.route, methods.fn, methods.option)
+            }
           }
 
-          /** 挂载websocket方法 */
+          /** 
+           * 挂载websocket方法 
+           */
           const websocket: WebSocketMetadata = Reflect.getMetadata(DecoratorKey.WebSocket, Prototype, key)
           if (
             websocket &&

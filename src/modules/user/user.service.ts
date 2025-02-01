@@ -3,7 +3,7 @@ import { UserSchema } from './user.schema'
 import { Autowired } from '@mango/core'
 
 export class UserService {
-  @Autowired()
+  @Autowired
   prisma: Prisma
 
   async getList(query: typeof UserSchema.static) {

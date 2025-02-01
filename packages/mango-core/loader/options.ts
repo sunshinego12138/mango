@@ -1,5 +1,5 @@
 import type { Mongo } from '@mango/types'
-import { resolve, sep } from 'path'
+import { resolve, sep } from 'node:path'
 
 /**
  * 初始化配置

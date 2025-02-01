@@ -1,5 +1,5 @@
 // 创建工厂
-import type { ElysiaConfig } from 'elysia'
+import type { ElysiaConfig, HTTPMethod } from 'elysia'
 import 'reflect-metadata'
 import { DecoratorKey } from '..'
 import type { Mongo } from '@mango/types'
@@ -9,6 +9,7 @@ import type { CronConfig } from '@elysiajs/cron'
 export interface MethodMetadata {
   method: MethodTyp
   key: string
+  customMethod?: string
   // option: ThirdParameterType
   option: Mongo.ThirdParameterType
   route: string
@@ -31,6 +32,7 @@ export enum MethodTyp {
   PATCH = 'patch',
   DELETE = 'delete',
   ALL = 'all',
+  CUSTOM = 'custom',
 }
 
 const method = (method: any) => {
@@ -78,10 +80,39 @@ export const Put = method(MethodTyp.PUT)
 export const Patch = method(MethodTyp.PATCH)
 
 /**
+ * 创建一个option请求
+ * @param route 路由路径
+ */
+export const Option = method(MethodTyp.OPTIONS)
+
+/**
  * 创建一个delete请求
  * @param route 路由路径
  */
 export const Delete = method(MethodTyp.DELETE)
+
+/**
+ * 创建一个自定义请求
+ * @param route 路由路径
+ */
+export const Custom = (method: HTTPMethod, route: string, option: Mongo.ThirdParameterType = {}) => {
+  return (target: any, key: string, descriptor: PropertyDescriptor) => {
+    Reflect.defineMetadata(
+      DecoratorKey.Method,
+      {
+        method: MethodTyp.CUSTOM,
+        customMethod: method,
+        key: DecoratorKey.Method,
+        route,
+        option,
+        fn: target[key].bind(target),
+        // fn: descriptor.value.bind(target),
+      },
+      target,
+      key,
+    )
+  }
+}
 
 /**
  * 创建一个all请求
@@ -110,4 +141,3 @@ export const WebSocket =
       key,
     )
   }
-
