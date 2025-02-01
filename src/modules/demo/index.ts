@@ -34,11 +34,18 @@ export default class DemoController {
     return query.id
   }
 
+  @Get('')
+  index(param: Mongo.Context<'redirect', any>) {
+    // return 'index'
+    // return this.serve.test
+    return param
+  }
+
   @Get('/param/:id/:name', {
     params: paramsSchema,
   })
-  param({ params }: Mongo.Context<'params', typeof paramsSchema.static>) {
-    return params
+  param(param: Mongo.Context<'params', typeof paramsSchema.static>) {
+    return param.params
   }
 
   @WebSocket('/ws', {
@@ -53,7 +60,7 @@ export default class DemoController {
 
   @Cron({
     name: 'task1',
-    pattern: '*/5 * * * * *',
+    pattern: '* * */5 * * *',
   })
   cronTask() {
     console.log('任务1')

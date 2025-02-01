@@ -24,7 +24,7 @@ export const init = (options: Mongo.MongoStartOptions) => {
     .decorate('env', loadEnv())
     .derive(({ store }: any) => {
       return {
-        /** 
+        /**
          * 停止定时任务
          * @param taskName 任务名称
          */

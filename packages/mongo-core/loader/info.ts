@@ -1,6 +1,5 @@
 import type { Mongo } from '@mongo/types'
 import { sep } from 'path'
-import figlet from 'figlet'
 
 /**
  * 程序启动时输入信息
@@ -9,7 +8,14 @@ import figlet from 'figlet'
  */
 export const infoLoader = (app: Mongo.App, options: Mongo.MongoStartOptions) => {
   app.onStart(({ server }) => {
-    const logo = figlet.textSync(`${options.name?.replace(/[\u4e00-\u9fa5]/g, '')}   started`)
+    const logo = `
+  __  __                                _           _               _             _           _ 
+ |  \\/  | ___  _ __   __ _  ___     ___| |_   _ ___(_) __ _     ___| |_ __ _ _ __| |_ ___  __| |
+ | |\\/| |/ _ \\| '_ \\ / _\` |/ _ \\   / _ \\ | | | / __| |/ _\` |   / __| __/ _\` | '__| __/ _ \\/ _\` |
+ | |  | | (_) | | | | (_| | (_) | |  __/ | |_| \\__ \\ | (_| |   \\__ \\ || (_| | |  | ||  __/ (_| |
+ |_|  |_|\\___/|_| |_|\\__, |\\___/   \\___|_|\\__, |___/_|\\__,_|   |___/\\__\\__,_|_|   \\__\\___|\\__,_|
+                     |___/                |___/                                                 
+    `
     console.log(logo)
     console.log(`version ${options.version}`)
     console.log('')
@@ -21,7 +27,7 @@ export const infoLoader = (app: Mongo.App, options: Mongo.MongoStartOptions) => 
     console.log(`-- [start] controllerPath: ${options.controllerPath?.split(sep).slice(-2).join('/')}`)
     console.log('')
     if (options.swagger) {
-      console.log(`🐑 Swagger UI: http://localhost:8000${options.swagger.path || '/swagger'}`)
+      console.log(`🐑 Swagger UI: ${server?.url}${options.swagger.path || '/swagger'}`)
     }
     console.log(`🦊【${options.name}】running at ${server?.url}`)
   })
