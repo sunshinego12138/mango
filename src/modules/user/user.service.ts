@@ -1,6 +1,6 @@
 import { Prisma } from '@/prisma'
 import { UserSchema } from './user.schema'
-import { Autowired } from '@mongo/core'
+import { Autowired } from '@mango/core'
 
 export class UserService {
   @Autowired()

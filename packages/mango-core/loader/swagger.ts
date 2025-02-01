@@ -1,5 +1,5 @@
 import swagger from '@elysiajs/swagger'
-import type { Mongo } from '@mongo/types'
+import type { Mongo } from '@mango/types'
 
 /**
  * 文档loader

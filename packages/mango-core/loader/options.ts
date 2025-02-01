@@ -1,4 +1,4 @@
-import type { Mongo } from '@mongo/types'
+import type { Mongo } from '@mango/types'
 import { resolve, sep } from 'path'
 
 /**

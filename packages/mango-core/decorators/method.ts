@@ -2,7 +2,7 @@
 import type { ElysiaConfig } from 'elysia'
 import 'reflect-metadata'
 import { DecoratorKey } from '..'
-import type { Mongo } from '@mongo/types'
+import type { Mongo } from '@mango/types'
 import type { CronConfig } from '@elysiajs/cron'
 
 // 请求装饰器元数据类型

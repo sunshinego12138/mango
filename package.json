@@ -1,5 +1,5 @@
 {
-  "name": "mongo",
+  "name": "mango",
   "module": "index.ts",
   "type": "module",
   "scripts": {
@@ -28,10 +28,10 @@
     "@elysiajs/cors": "^1.2.0",
     "@elysiajs/cron": "^1.2.0",
     "@elysiajs/swagger": "^1.2.0",
-    "@mongo/core": "workspace: *",
-    "@mongo/extends": "workspace: *",
-    "@mongo/types": "workspace: *",
-    "@mongo/utils": "workspace: *",
+    "@mango/core": "workspace: *",
+    "@mango/extends": "workspace: *",
+    "@mango/types": "workspace: *",
+    "@mango/utils": "workspace: *",
     "@prisma/client": "^6.1.0",
     "elysia": "1.1.27",
     "elysia-decorators": "^1.0.2",

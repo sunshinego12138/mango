@@ -1,5 +1,5 @@
 {
-  "name": "@mongo/types",
+  "name": "@mango/types",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

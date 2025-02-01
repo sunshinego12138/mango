@@ -1,7 +1,7 @@
-import { Controller, Get, Autowired, WebSocket, Cron } from '@mongo/core'
+import { Controller, Get, Autowired, WebSocket, Cron } from '@mango/core'
 import { paramsSchema, querySchema } from './schema'
 import { TestServe } from './serve'
-import type { Mongo } from '@mongo/types'
+import type { Mongo } from '@mango/types'
 import { t } from 'elysia'
 @Controller({
   name: '测试模块',

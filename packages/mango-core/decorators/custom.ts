@@ -1,4 +1,4 @@
-import type { Mongo } from '@mongo/types'
+import type { Mongo } from '@mango/types'
 
 /**
  * 自定义装饰器

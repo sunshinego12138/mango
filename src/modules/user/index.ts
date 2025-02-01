@@ -1,5 +1,5 @@
-import { Controller, Delete, Get, Post, Autowired, Put } from '@mongo/core'
-import type { Mongo } from '@mongo/types'
+import { Controller, Delete, Get, Post, Autowired, Put } from '@mango/core'
+import type { Mongo } from '@mango/types'
 import { DeleteUserSchema, UserSchema } from './user.schema'
 import { t } from 'elysia'
 import { UserService } from './user.service'

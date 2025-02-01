@@ -1,4 +1,4 @@
-import { type Mongo } from '@mongo/types'
+import { type Mongo } from '@mango/types'
 import Elysia from 'elysia'
 import { sep, resolve } from 'path'
 import { globSync } from 'glob'

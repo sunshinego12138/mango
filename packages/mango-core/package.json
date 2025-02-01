@@ -1,5 +1,5 @@
 {
-  "name": "@mongo/extends",
+  "name": "@mango/core",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

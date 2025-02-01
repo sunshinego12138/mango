@@ -1,4 +1,4 @@
-import { DecoratorKey, Injectable, Autowired } from '@mongo/core'
+import { DecoratorKey, Injectable, Autowired } from '@mango/core'
 
 // @Injectable('test')
 class Serve {

@@ -1,4 +1,4 @@
-import MongoCore from '@mongo/core'
+import MongoCore from '@mango/core'
 import { InferContext } from 'elysia'
 
 const app = MongoCore.init({

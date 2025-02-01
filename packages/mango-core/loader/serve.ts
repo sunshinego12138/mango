@@ -1,9 +1,9 @@
-import { type Mongo } from '@mongo/types'
+import { type Mongo } from '@mango/types'
 import Elysia from 'elysia'
 import { sep, resolve } from 'path'
 import { globSync } from 'glob'
 import { DecoratorKey, type MethodMetadata } from '..'
-import { isClass } from '@mongo/utils'
+import { isClass } from '@mango/utils'
 
 /**
  * 加载被注入的serve

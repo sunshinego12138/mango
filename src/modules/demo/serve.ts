@@ -1,4 +1,4 @@
-import { Autowired } from '@mongo/core'
+import { Autowired } from '@mango/core'
 
 export class TestServe {
   @Autowired()

@@ -1,4 +1,4 @@
-import { Controller, DecoratorKey, Get, MethodMetadata } from '@mongo/core'
+import { Controller, DecoratorKey, Get, MethodMetadata } from '@mango/core'
 import Elysia, { ElysiaConfig } from 'elysia'
 
 @Controller({

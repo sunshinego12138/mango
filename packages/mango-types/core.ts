@@ -1,4 +1,4 @@
-import MongoFunc from '@mongo/core'
+import MongoFunc from '@mango/core'
 import { type ElysiaSwaggerConfig } from '@elysiajs/swagger'
 import type { InferContext, InferHandler } from 'elysia'
 
