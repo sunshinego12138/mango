@@ -36,6 +36,7 @@
     "elysia": "1.1.27",
     "elysia-decorators": "^1.0.2",
     "glob": "^11.0.1",
+    "logestic": "^1.2.4",
     "reflect-metadata": "^0.2.2"
   }
 }

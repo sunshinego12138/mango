@@ -37,6 +37,11 @@ export declare namespace Mongo {
     swagger?: Omit<ElysiaSwaggerConfig, 'path'> & {
       path?: string
     }
+    /**
+     * 是否启用日志
+     * 有三种样式选择
+     */
+    logger?: 'common' | 'fancy' | 'commontz'
   }
 
   // /** app实例的类型 */

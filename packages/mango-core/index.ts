@@ -10,6 +10,7 @@ import { infoLoader } from './loader/info'
 import { swaggerLoader } from './loader/swagger'
 import serveLoader from './loader/serve'
 import cors from '@elysiajs/cors'
+import { Logestic } from 'logestic'
 
 /**
  * 初始化框架
@@ -44,6 +45,10 @@ export const init = (options: Mongo.MongoStartOptions) => {
   // 是否开启cors
   if (options.cors) {
     app.use(cors())
+  }
+  // 是否开启日志
+  if (options.logger) {
+    app.use(Logestic.preset(options.logger))
   }
   return app
 }
