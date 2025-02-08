@@ -1,5 +1,5 @@
 import { Controller, Delete, Get, Post, Autowired, Put } from '@mango/core'
-import type { Mongo } from '@mango/types'
+import type { Mango } from '@mango/types'
 import { DeleteUserSchema, UserSchema } from './user.schema'
 import { t } from 'elysia'
 import { UserService } from './user.service'
@@ -21,7 +21,7 @@ export default class UserController {
       description: '获取用户列表',
     },
   })
-  async getList({ query }: Mongo.Context<'query', typeof UserSchema.static>) {
+  async getList({ query }: Mango.Context<'query', typeof UserSchema.static>) {
     return await this.serve.getList(query)
     // return await prisma.user.findMany({
     //   where: {
@@ -36,7 +36,7 @@ export default class UserController {
       description: '添加用户',
     },
   })
-  async add({ prisma, body }: Mongo.Context<'body', typeof UserSchema.static>) {
+  async add({ prisma, body }: Mango.Context<'body', typeof UserSchema.static>) {
     const res = await prisma.user.create({
       data: body,
     })
@@ -49,7 +49,7 @@ export default class UserController {
       description: '删除用户',
     },
   })
-  async delete({ prisma, params }: Mongo.Context<'params', typeof DeleteUserSchema.static>) {
+  async delete({ prisma, params }: Mango.Context<'params', typeof DeleteUserSchema.static>) {
     const res = await prisma.user.delete({
       where: {
         id: params.id,
@@ -69,8 +69,8 @@ export default class UserController {
     prisma,
     params,
     body,
-  }: Mongo.Merge<
-    Mongo.Context,
+  }: Mango.Merge<
+    Mango.Context,
     {
       body: typeof UserSchema.static
       params: typeof DeleteUserSchema.static

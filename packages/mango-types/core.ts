@@ -2,7 +2,7 @@ import MongoFunc from '@mango/core'
 import { type ElysiaSwaggerConfig } from '@elysiajs/swagger'
 import type { InferContext, InferHandler } from 'elysia'
 
-export declare namespace Mongo {
+export declare namespace Mango {
   export type MongoStartOptions = {
     /** 应用名称
      * @default Elysia SunShine

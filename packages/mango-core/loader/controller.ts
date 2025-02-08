@@ -1,4 +1,4 @@
-import { type Mongo } from '@mango/types'
+import { type Mango } from '@mango/types'
 import Elysia from 'elysia'
 import { sep, resolve } from 'node:path'
 import { globSync } from 'glob'
@@ -10,7 +10,7 @@ import { cron as cronExtends } from '@elysiajs/cron'
  * @param options
  * @returns
  */
-const controllerLoader = async (options: Mongo.MongoStartOptions) => {
+const controllerLoader = async (options: Mango.MangoStartOptions) => {
   const app = new Elysia()
   // 获取controllerPath下所有的子控制器并注册
   const modules = globSync(resolve(options.controllerPath as string, `.${sep}**${sep}index.ts`), {

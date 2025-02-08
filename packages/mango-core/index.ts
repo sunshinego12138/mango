@@ -2,7 +2,7 @@ import Elysia, { type InferContext, type InferHandler } from 'elysia'
 import { sep } from 'path'
 import { swagger, type ElysiaSwaggerConfig } from '@elysiajs/swagger'
 import { DBExtends, swiggerExtends } from '@mango/extends'
-import type { Mongo } from '@mango/types'
+import type { Mango } from '@mango/types'
 import { loadEnv } from '@mango/utils'
 import controllerLoader from './loader/controller'
 import optionsInit from './loader/options'
@@ -17,7 +17,7 @@ import { Logestic } from 'logestic'
  * @param options
  * @returns
  */
-export const init = (options: Mongo.MongoStartOptions) => {
+export const init = (options: Mango.MongoStartOptions) => {
   optionsInit(options)
   const app = new Elysia()
     .use(DBExtends)

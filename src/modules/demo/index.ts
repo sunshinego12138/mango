@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Put,Delete,All,Option, Patch,Custom, Autowired, WebSocket, Cron } from '@mango/core'
 import { paramsSchema, querySchema } from './schema'
 import { TestServe } from './serve'
-import type { Mongo } from '@mango/types'
+import type { Mango } from '@mango/types'
 import { t } from 'elysia'
 @Controller({
   name: '测试模块',
@@ -18,7 +18,7 @@ export default class DemoController {
   @Get('/login', {
     query: querySchema,
   })
-  login({ query }: Mongo.Context) {
+  login({ query }: Mango.Context) {
     return new Response(JSON.stringify(this.serve.serve), {
       status: 200, // HTTP 状态码
       headers: {
@@ -30,12 +30,12 @@ export default class DemoController {
   @Get('/test', {
     query: querySchema,
   })
-  test({ query }: Mongo.Context<'query', typeof querySchema.static>) {
+  test({ query }: Mango.Context<'query', typeof querySchema.static>) {
     return query.id
   }
 
   @Get('')
-  index(param: Mongo.Context<'redirect', any>) {
+  index(param: Mango.Context<'redirect', any>) {
     // return 'index'
     return this.serve.serve.name
     // return param
@@ -44,7 +44,7 @@ export default class DemoController {
   @Get('/param/:id/:name', {
     params: paramsSchema,
   })
-  param(param: Mongo.Context<'params', typeof paramsSchema.static>) {
+  param(param: Mango.Context<'params', typeof paramsSchema.static>) {
     return param.params
   }
 
@@ -54,7 +54,7 @@ export default class DemoController {
       age: t.Number(),
     }),
   })
-  websocket(ws: Mongo.WebSocket, message: any) {
+  websocket(ws: Mango.WebSocket, message: any) {
     ws.send(message)
   }
 
@@ -67,7 +67,7 @@ export default class DemoController {
   }
 
   @Get('/stop/task')
-  stopTask({ stopCronTask }: Mongo.Context) {
+  stopTask({ stopCronTask }: Mango.Context) {
     stopCronTask('task1')
     return '停止任务1'
   }

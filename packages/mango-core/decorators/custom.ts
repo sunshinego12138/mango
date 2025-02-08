@@ -1,4 +1,4 @@
-import type { Mongo } from '@mango/types'
+import type { Mango } from '@mango/types'
 
 /**
  * 自定义装饰器
@@ -9,7 +9,7 @@ import type { Mongo } from '@mango/types'
  * })
  */
 export function createParameterDecorator<T = {}>(
-  handler: (parameter: Mongo.Merge<Mongo.Context<'redirect', any>, T>, originalMethod: Function) => any,
+  handler: (parameter: Mango.Merge<Mango.Context<'redirect', any>, T>, originalMethod: Function) => any,
 ) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value // 保存原始方法

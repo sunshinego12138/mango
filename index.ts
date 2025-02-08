@@ -5,7 +5,7 @@ import { InferContext } from 'elysia'
 MongoCore.init({
   businessPath: 'src',
   controllerPath: 'modules',
-  name: 'Mongo elysia',
+  name: 'Mango elysia',
   version: '1.0.0',
   swagger: {},
 }).listen(8899)
