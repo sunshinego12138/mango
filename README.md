@@ -155,6 +155,53 @@ export default class DemoController {
 }
 ```
 
+## 自定义装饰器
+> 注意，自定义装饰器必须在请求装饰器下面
+```typescript
+import { Controller, Get, Post, Put, Delete, All, Option, Patch, Custom} from '@mango/core'
+import type { Mango } from '@mango/types'
+import { createParameterDecorator } from '@mango/core'
+import { HttpStatus, JsonResponse } from '@mango/utils'
+
+const test = createParameterDecorator<{
+  body: any
+}>((context, originalMethod) => {
+  if (!context.body.name) {
+    return JsonResponse(
+      {
+        code: HttpStatus.BAD_REQUEST,
+        msg: '缺少名字',
+      },
+      HttpStatus.BAD_REQUEST,
+    )
+  }
+  return originalMethod
+})
+
+@Controller({
+  name: '测试模块',
+  prefix: '/test',
+  detail: {
+    description: '这是一段测试模块的备注',
+    tags: ['测试'],
+  },
+})
+export default class DemoController {
+  @Post('/test')
+  @test
+  test1(data: Mango.Context) {
+    return 'Hello Word!'
+  }
+}
+```
+
+
+> 当前版本的`elysia`存在类型bug，在代码中忘记添加了`NoInfer`类型工具
+> 需要手动添加
+```ts
+export type NoInfer<T> = T extends infer U ? U : never;
+```
+
 ## 贡献
 
 欢迎贡献
