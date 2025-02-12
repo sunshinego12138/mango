@@ -1,5 +1,5 @@
 import { type Mango } from '@mango/types'
-import Elysia from 'elysia'
+import {t, Elysia} from 'elysia'
 import { sep, resolve } from 'node:path'
 import { globSync } from 'glob'
 import { DecoratorKey, type CronMetadata, type MethodMetadata, type WebSocketMetadata } from '..'
@@ -78,8 +78,9 @@ const controllerLoader = async (options: Mango.MangoStartOptions) => {
               }),
             )
           }
-          app.use(router)
+          
         })
+        app.use(router)
       }
     }
   }
