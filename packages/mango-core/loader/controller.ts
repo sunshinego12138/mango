@@ -35,7 +35,7 @@ const controllerLoader = async (options: Mango.MangoStartOptions) => {
           if (key === 'constructor') {
             return
           }
-          /** 
+          /**
            * 挂载方法
            */
           // 挂载到方法上的属性，也就是方法装饰器设置的值
@@ -51,8 +51,8 @@ const controllerLoader = async (options: Mango.MangoStartOptions) => {
             }
           }
 
-          /** 
-           * 挂载websocket方法 
+          /**
+           * 挂载websocket方法
            */
           const websocket: WebSocketMetadata = Reflect.getMetadata(DecoratorKey.WebSocket, Prototype, key)
           if (
@@ -78,8 +78,8 @@ const controllerLoader = async (options: Mango.MangoStartOptions) => {
               }),
             )
           }
-          app.use(router)
         })
+        app.use(router)
       }
     }
   }
