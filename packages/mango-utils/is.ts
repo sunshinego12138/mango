@@ -53,3 +53,7 @@ export function isArguments(value: any): boolean {
 export function isBuffer(value: any): boolean {
   return Buffer.isBuffer(value)
 }
+
+export function isPromise(value: any): boolean {
+  return value instanceof Promise
+}

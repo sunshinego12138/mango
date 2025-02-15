@@ -165,17 +165,22 @@ import { HttpStatus, JsonResponse } from '@mango/utils'
 
 const test = createParameterDecorator<{
   body: any
-}>((context, originalMethod) => {
+}>((context) => {
   if (!context.body.name) {
-    return JsonResponse(
+    return {
+      status: false,
+      response: JsonResponse(
       {
         code: HttpStatus.BAD_REQUEST,
         msg: '缺少名字',
       },
       HttpStatus.BAD_REQUEST,
     )
+    }
   }
-  return originalMethod
+  return {
+    status: true,
+  }
 })
 
 @Controller({
