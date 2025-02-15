@@ -1,15 +1,6 @@
 import type { Mango } from '@mango/types'
-import { isPromise } from '@mango/utils'
-type ParametersHandlerType = {
-  /**
-   * 是否通过
-   * @true 通过
-   * @false 不通过，返回response的值
-   */
-  status: boolean
-  /** 当status为false时返回的值 */
-  response?: any
-}
+import { isBoolean, isPromise } from '@mango/utils'
+type ParametersHandlerType = boolean | Record<string, any>
 /**
  * 自定义装饰器
  * @important 需要放置到请求装饰器下
@@ -32,10 +23,14 @@ export function createParameterDecorator<T = {}>(
       if (isPromise(res)) {
         res = await handler(parameter)
       }
-      if (res.status) {
-        return originalMethod.apply(this, args)
+      if (isBoolean(res)) {
+        if (res) {
+          return originalMethod.apply(this, args)
+        } else {
+          return null
+        }
       } else {
-        return res.response
+        return res
       }
     }
     target[propertyKey] = descriptor.value

@@ -167,20 +167,15 @@ const test = createParameterDecorator<{
   body: any
 }>((context) => {
   if (!context.body.name) {
-    return {
-      status: false,
-      response: JsonResponse(
+    return JsonResponse(
       {
         code: HttpStatus.BAD_REQUEST,
         msg: '缺少名字',
       },
       HttpStatus.BAD_REQUEST,
     )
-    }
   }
-  return {
-    status: true,
-  }
+  return true
 })
 
 @Controller({
