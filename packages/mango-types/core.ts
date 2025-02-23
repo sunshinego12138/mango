@@ -1,9 +1,9 @@
 import MongoFunc from '@mango/core'
 import { type ElysiaSwaggerConfig } from '@elysiajs/swagger'
-import type { InferContext, InferHandler } from 'elysia'
+import type { InferContext, InferHandler, ElysiaConfig } from 'elysia'
 
 export declare namespace Mango {
-  export type MongoStartOptions = {
+  export type MangoStartOptions = {
     /** 应用名称
      * @default Elysia SunShine
      */
@@ -42,6 +42,11 @@ export declare namespace Mango {
      * 有三种样式选择
      */
     logger?: 'common' | 'fancy' | 'commontz'
+
+    /**
+     * Elysia的配置
+     */
+    ElysiaOption?: ElysiaConfig<string, false>
   }
 
   // /** app实例的类型 */

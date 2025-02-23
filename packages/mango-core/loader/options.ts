@@ -8,6 +8,7 @@ import { resolve, sep } from 'node:path'
 const optionsInit = (options: Mango.MangoStartOptions) => {
   options.name = options.name || 'Mango Elysia'
   options.version = options.version || '1.0.0'
+  options.ElysiaOption = options.ElysiaOption || {}
   options.baseDir = process.cwd()
   options.businessPath = resolve(options.baseDir || '', `.${sep}${options.businessPath || 'src'}`)
   options.controllerPath = resolve(options.businessPath, `.${sep}${options.controllerPath || 'modules'}`)

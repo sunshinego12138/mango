@@ -19,7 +19,7 @@ import { Logestic } from 'logestic'
  */
 export const init = (options: Mango.MongoStartOptions) => {
   optionsInit(options)
-  const app = new Elysia()
+  const app = new Elysia(options.ElysiaOption)
     .use(controllerLoader(options))
     .decorate('env', loadEnv())
     .derive(({ store }: any) => {

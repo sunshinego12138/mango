@@ -1,8 +1,48 @@
-import { Controller, Get, Post, Put,Delete,All,Option, Patch,Custom, Autowired, WebSocket, Cron } from '@mango/core'
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  All,
+  Option,
+  Patch,
+  Custom,
+  Autowired,
+  WebSocket,
+  Cron,
+  createParameterDecorator,
+} from '@mango/core'
 import { paramsSchema, querySchema } from './schema'
 import { TestServe } from './serve'
 import type { Mango } from '@mango/types'
 import { t } from 'elysia'
+
+const test = createParameterDecorator(({}) => {
+  console.log('okkk')
+  return true
+})
+
+function LogMethodCalls() {
+  return function (target: Function) {
+    // 获取类的方法名
+    const methodNames = Object.getOwnPropertyNames(target.prototype).filter((name) => name !== 'constructor')
+
+    // 遍历每个方法
+    for (const methodName of methodNames) {
+      // 保存原始方法的引用
+      const originalMethod = target.prototype[methodName]
+
+      // 替换为新的方法
+      target.prototype[methodName] = function (...args: any[]) {
+        console.log(`Calling method: ${methodName}`)
+        // 调用原始方法并返回其结果
+        return originalMethod.apply(this, args)
+      }
+    }
+  }
+}
+
 @Controller({
   name: '测试模块',
   prefix: '/test',
@@ -11,6 +51,7 @@ import { t } from 'elysia'
     tags: ['测试'],
   },
 })
+@LogMethodCalls()
 export default class DemoController {
   @Autowired
   serve: TestServe
@@ -30,7 +71,9 @@ export default class DemoController {
   @Get('/test', {
     query: querySchema,
   })
+  @test
   test({ query }: Mango.Context<'query', typeof querySchema.static>) {
+    console.log('test')
     return query.id
   }
 

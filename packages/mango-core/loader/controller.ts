@@ -30,6 +30,8 @@ const controllerLoader = async (options: Mango.MangoStartOptions) => {
 
         const Prototype = module.default.prototype
 
+        const controllerInstance = new module.default()
+
         Object.getOwnPropertyNames(Prototype).forEach((key) => {
           // 构造函数去掉
           if (key === 'constructor') {
@@ -47,7 +49,9 @@ const controllerLoader = async (options: Mango.MangoStartOptions) => {
               // 自定义方法
               router.route(methods.customMethod, methods.route, methods.fn, methods.option)
             } else {
-              router[methods.method](methods.route, methods.fn, methods.option)
+              const fn = controllerInstance[key]
+              router[methods.method](methods.route, fn, methods.option)
+              // router[methods.method](methods.route, methods.fn, methods.option)
             }
           }
 

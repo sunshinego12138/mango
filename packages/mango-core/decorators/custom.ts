@@ -6,7 +6,7 @@ type ParametersHandlerType = boolean | Record<string, any>
  * @important 需要放置到请求装饰器下
  * @example
  * export const logFirstParameter = createParameterDecorator((parameter, originalMethod) => {
- *  return originalMethod
+ *  return true
  * })
  */
 export function createParameterDecorator<T = {}>(
