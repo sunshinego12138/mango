@@ -22,7 +22,7 @@
     "prisma": "^6.2.1"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "latest"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.2.0",
