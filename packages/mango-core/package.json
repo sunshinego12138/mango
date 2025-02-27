@@ -1,11 +1,27 @@
 {
   "name": "@mango/core",
-  "module": "index.ts",
+  "version": "0.0.1",
   "type": "module",
+  "scripts": {
+    "build": "tsup --config ../tsup.config.ts"
+  },
+  "main": "./index.cjs",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "typings": "./index.d.cts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./index.d.ts",
+        "./index.d.cts"
+      ]
+    }
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "elysia": "latest"
   }
 }

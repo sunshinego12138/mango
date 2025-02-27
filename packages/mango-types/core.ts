@@ -46,7 +46,7 @@ export declare namespace Mango {
     /**
      * Elysia的配置
      */
-    ElysiaOption?: ElysiaConfig<string, false>
+    ElysiaOption?: ElysiaConfig<string>
   }
 
   // /** app实例的类型 */

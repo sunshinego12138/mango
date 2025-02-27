@@ -17,7 +17,7 @@ import { Logestic } from 'logestic'
  * @param options
  * @returns
  */
-export const init = (options: Mango.MongoStartOptions) => {
+export const init = (options: Mango.MangoStartOptions) => {
   optionsInit(options)
   const app = new Elysia(options.ElysiaOption)
     .use(controllerLoader(options))
