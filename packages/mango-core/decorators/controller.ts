@@ -7,7 +7,7 @@ import { DecoratorKey, MethodTyp } from '..'
  * @returns
  */
 export const Controller =
-  (option: ElysiaConfig<string, false> = {}) =>
+  (option: ElysiaConfig<string> = {}) =>
   (target: any) => {
     Reflect.defineMetadata(
       DecoratorKey.Controller,

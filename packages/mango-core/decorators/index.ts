@@ -14,6 +14,8 @@ export enum DecoratorKey {
   WebSocket = 'websocket',
   /** 定时任务 */
   Cron = 'cron',
+  /** controller的装饰器 */
+  BeforeHandle = 'beforeHandle'
 }
 export * from './controller'
 export * from './method'

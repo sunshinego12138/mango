@@ -4,6 +4,7 @@ import { sep, resolve } from 'node:path'
 import { globSync } from 'glob'
 import { DecoratorKey, type CronMetadata, type MethodMetadata, type WebSocketMetadata } from '..'
 import { cron as cronExtends } from '@elysiajs/cron'
+import { isBoolean } from '@mango/utils'
 
 /**
  * 加载controller
@@ -22,15 +23,43 @@ const controllerLoader = async (options: Mango.MangoStartOptions) => {
     // Controller必须默认导出并且在index.ts中才生效
     if (module.default) {
       let controller = Reflect.getMetadata(DecoratorKey.Controller, module.default)
+
       // 注册控制器
       // 需要被Controller装饰器装饰的类才会注册到elysia实例上
       if (controller && controller.key === DecoratorKey.Controller) {
+        // 装饰Controller的装饰器
+        const controllerBeforeHandler = Reflect.getMetadata(DecoratorKey.BeforeHandle, module.default)
         // 挂载到类上的属性，也就是controller设置的值
         const router: any = new Elysia(controller?.option || {})
 
-        const Prototype = module.default.prototype
+        if (
+          controllerBeforeHandler &&
+          controllerBeforeHandler.key == DecoratorKey.BeforeHandle &&
+          controllerBeforeHandler.handler
+        ) {
+          // 添加请求前置处理
+          router.onBeforeHandle(async (parameter: any) => {
+            let res = {}
+            const str = controllerBeforeHandler.handler.toString()
+            if (str.includes('async') || str.includes('Promise.resolve')) {
+              // 是promise的话
+              res = await controllerBeforeHandler.handler(parameter)
+            } else {
+              res = controllerBeforeHandler.handler(parameter)
+            }
+            if (isBoolean(res)) {
+              if (!res) {
+                return new Response(null, {
+                  status: 500,
+                })
+              }
+            } else {
+              return res
+            }
+          })
+        }
 
-        const controllerInstance = new module.default()
+        const Prototype = module.default.prototype
 
         Object.getOwnPropertyNames(Prototype).forEach((key) => {
           // 构造函数去掉
@@ -49,9 +78,7 @@ const controllerLoader = async (options: Mango.MangoStartOptions) => {
               // 自定义方法
               router.route(methods.customMethod, methods.route, methods.fn, methods.option)
             } else {
-              const fn = controllerInstance[key]
-              router[methods.method](methods.route, fn, methods.option)
-              // router[methods.method](methods.route, methods.fn, methods.option)
+              router[methods.method](methods.route, methods.fn, methods.option)
             }
           }
 

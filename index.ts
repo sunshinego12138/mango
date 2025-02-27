@@ -8,4 +8,6 @@ MongoCore.init({
   name: 'Mango elysia',
   version: '1.0.0',
   swagger: {},
+}).onBeforeHandle(({}) => {
+  
 }).listen(8899)
