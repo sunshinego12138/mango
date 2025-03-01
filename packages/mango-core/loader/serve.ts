@@ -1,4 +1,4 @@
-import { type Mango } from '@mango/types'
+import { type MangoStartOptions } from '@mango/types'
 import Elysia from 'elysia'
 import { sep, resolve } from 'node:path'
 import { globSync } from 'glob'
@@ -10,7 +10,7 @@ import { isClass } from '@mango/utils'
  * @param options
  * @returns
  */
-const serveLoader = async (options: Mango.MangoStartOptions) => {
+const serveLoader = async (options: MangoStartOptions) => {
   // 获取businessPath下所有的服务并注册
   const modules = globSync(resolve(options.businessPath as string, `.${sep}**${sep}*.ts`), {
     ignore: ['**/node_modules/**'],

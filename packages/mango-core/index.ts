@@ -1,23 +1,19 @@
-import Elysia, { type InferContext, type InferHandler } from 'elysia'
-import { sep } from 'path'
-import { swagger, type ElysiaSwaggerConfig } from '@elysiajs/swagger'
-import { DBExtends, swiggerExtends } from '@mango/extends'
-import type { Mango } from '@mango/types'
-import { loadEnv } from '@mango/utils'
-import controllerLoader from './loader/controller'
-import optionsInit from './loader/options'
-import { infoLoader } from './loader/info'
-import { swaggerLoader } from './loader/swagger'
-import serveLoader from './loader/serve'
 import cors from '@elysiajs/cors'
+import type { MangoStartOptions } from '@mango/types'
+import { loadEnv, omit } from '@mango/utils'
+import Elysia from 'elysia'
 import { Logestic } from 'logestic'
+import controllerLoader from './loader/controller'
+import { infoLoader } from './loader/info'
+import optionsInit from './loader/options'
+import { swaggerLoader } from './loader/swagger'
 
 /**
  * 初始化框架
  * @param options
  * @returns
  */
-export const init = (options: Mango.MangoStartOptions) => {
+export const init = (options: MangoStartOptions) => {
   optionsInit(options)
   const app = new Elysia(options.ElysiaOption)
     .use(controllerLoader(options))
@@ -46,8 +42,8 @@ export const init = (options: Mango.MangoStartOptions) => {
     app.use(cors())
   }
   // 是否开启日志
-  if (options.logger) {
-    app.use(Logestic.preset(options.logger))
+  if (options.logger?.type) {
+    app.use(Logestic.preset(options.logger.type, omit(options.logger, ['type'])))
   }
   return app
 }

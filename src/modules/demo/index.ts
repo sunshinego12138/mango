@@ -15,10 +15,10 @@ import {
 } from '@mango/core'
 import { paramsSchema, querySchema } from './schema'
 import { TestServe } from './serve'
-import type { Mango } from '@mango/types'
+import type { Context, WebSocketContext } from '@mango/types'
 import { t } from 'elysia'
 
-const Logger = createParameterDecorator(async ({query}) => {
+const Logger = createParameterDecorator(async ({ query }) => {
   return true
 })
 
@@ -38,7 +38,7 @@ export default class DemoController {
   @Get('/login', {
     query: querySchema,
   })
-  login({ query }: Mango.Context) {
+  login({ query }: Context) {
     return new Response(JSON.stringify(this.serve.serve), {
       status: 200, // HTTP 状态码
       headers: {
@@ -50,12 +50,12 @@ export default class DemoController {
   @Get('/test', {
     query: querySchema,
   })
-  test({ query }: Mango.Context<'query', typeof querySchema.static>) {
+  test({ query }: Context<'query', typeof querySchema.static>) {
     return this.serve.test
   }
 
   @Get('')
-  index(param: Mango.Context<'redirect', any>) {
+  index(param: Context<'redirect', any>) {
     // return 'index'
     return this.serve.serve.name
     // return param
@@ -64,7 +64,7 @@ export default class DemoController {
   @Get('/param/:id/:name', {
     params: paramsSchema,
   })
-  param(param: Mango.Context<'params', typeof paramsSchema.static>) {
+  param(param: Context<'params', typeof paramsSchema.static>) {
     return param.params
   }
 
@@ -74,7 +74,7 @@ export default class DemoController {
       age: t.Number(),
     }),
   })
-  websocket(ws: Mango.WebSocket, message: any) {
+  websocket(ws: WebSocketContext, message: any) {
     ws.send(message)
   }
 
@@ -87,7 +87,7 @@ export default class DemoController {
   }
 
   @Get('/stop/task')
-  stopTask({ stopCronTask }: Mango.Context) {
+  stopTask({ stopCronTask }: Context) {
     stopCronTask('task1')
     return '停止任务1'
   }

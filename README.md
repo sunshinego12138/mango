@@ -27,7 +27,7 @@ git clone xxx # 该项目地址
 ```typescript
 
 import { Controller, Get} from '@mango/core'
-import type { Mango } from '@mango/types'
+import type { Context } from '@mango/types'
 @Controller({
   name: '测试模块',
   prefix: '/test',
@@ -38,7 +38,7 @@ import type { Mango } from '@mango/types'
 })
 export default class DemoController {
   @Get('/test')
-  login(data: Mango.Context) {
+  login(data: Context) {
     return 'Hello Word!'
   }
 }
@@ -47,7 +47,7 @@ export default class DemoController {
 ## 依赖注入
 ```typescript
 import { Controller, Get} from '@mango/core'
-import type { Mango } from '@mango/types'
+import type { Context } from '@mango/types'
 @Controller({
   name: '测试模块',
   prefix: '/test',
@@ -59,7 +59,7 @@ import type { Mango } from '@mango/types'
 export default class DemoController {
 
   @Get()
-  test(store: Mango.Context) {
+  test(store: Context) {
     
   }
 }
@@ -77,7 +77,7 @@ Mango 提供了一个简单的路由系统，以下是一些常用的路由示�
 
 ```typescript
 import { Controller, Get, Post, Put, Delete, All, Option, Patch, Custom} from '@mango/core'
-import type { Mango } from '@mango/types'
+import type { Context } from '@mango/types'
 @Controller({
   name: '测试模块',
   prefix: '/test',
@@ -88,12 +88,12 @@ import type { Mango } from '@mango/types'
 })
 export default class DemoController {
   @Get('/test')
-  test1(data: Mango.Context) {
+  test1(data: Context) {
     return 'Hello Word!'
   }
 
   @Post('/test')
-  test2(data: Mango.Context) {
+  test2(data: Context) {
     return 'Hello Word!'
   } 
 }
@@ -104,7 +104,7 @@ export default class DemoController {
 
 ```typescript
 import { Controller, Get, Cron} from '@mango/core'
-import type { Mango } from '@mango/types'
+import type { Context } from '@mango/types'
 @Controller({
   name: '测试模块',
   prefix: '/test',
@@ -123,7 +123,7 @@ export default class DemoController {
   }
 
   @Get('/stop/task')
-  stopTask({ stopCronTask }: Mango.Context) {
+  stopTask({ stopCronTask }: Context) {
     stopCronTask('task1')
     return '停止任务1'
   }
@@ -133,7 +133,7 @@ export default class DemoController {
 ## WebSocket
 ```typescript
 import { Controller, WebSocket} from '@mango/core'
-import type { Mango } from '@mango/types'
+import type { WebSocketContext } from '@mango/types'
 @Controller({
   name: '测试模块',
   prefix: '/test',
@@ -149,7 +149,7 @@ export default class DemoController {
       age: t.Number(),
     }),
   })
-  websocket(ws: Mango.WebSocket, message: any) {
+  websocket(ws: WebSocketContext, message: any) {
     ws.send(message)
   }
 }
@@ -159,7 +159,7 @@ export default class DemoController {
 > 注意，自定义装饰器必须在请求装饰器下面
 ```typescript
 import { Controller, Get, Post, Put, Delete, All, Option, Patch, Custom} from '@mango/core'
-import type { Mango } from '@mango/types'
+import type { Context } from '@mango/types'
 import { createParameterDecorator } from '@mango/core'
 import { HttpStatus, JsonResponse } from '@mango/utils'
 
@@ -189,7 +189,7 @@ const test = createParameterDecorator<{
 export default class DemoController {
   @Post('/test')
   @test
-  test1(data: Mango.Context) {
+  test1(data: Context) {
     return 'Hello Word!'
   }
 }

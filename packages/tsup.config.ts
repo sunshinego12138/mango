@@ -15,6 +15,8 @@ export default defineConfig((options) => ({
     'node:path',
     'node:child_process',
     'elysia',
+    'prisma',
+    '@prisma/client',
   ],
   esbuildOptions(opt) {
     // 添加 Bun 运行时支持

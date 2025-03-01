@@ -1,4 +1,4 @@
-import type { Mango } from '@mango/types'
+import type { App, MangoStartOptions } from '@mango/types'
 import { sep } from 'node:path'
 
 /**
@@ -6,7 +6,7 @@ import { sep } from 'node:path'
  * @param app
  * @param options
  */
-export const infoLoader = (app: Mango.App, options: Mango.MangoStartOptions) => {
+export const infoLoader = (app: App, options: MangoStartOptions) => {
   app.onStart(({ server }) => {
     const logo = `
   __  __                                _           _             _             _           _ 

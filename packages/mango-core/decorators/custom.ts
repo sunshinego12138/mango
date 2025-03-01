@@ -1,4 +1,4 @@
-import type { Mango } from '@mango/types'
+import type { Context, Merge } from '@mango/types'
 import { isBoolean, isPromise } from '@mango/utils'
 import { DecoratorKey } from '..'
 type ParametersHandlerType = boolean | Record<string, any>
@@ -13,7 +13,7 @@ type ParametersHandlerType = boolean | Record<string, any>
  */
 export function createParameterDecorator<T = {}>(
   handler: (
-    parameter: Mango.Merge<Mango.Context<'redirect', any>, T>,
+    parameter: Merge<Context<'redirect', any>, T>,
   ) => ParametersHandlerType | Promise<ParametersHandlerType>,
 ): any {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
@@ -74,7 +74,7 @@ export function createParameterDecorator<T = {}>(
 // 只支持类方法
 // export function createParameterDecorator<T = {}>(
 //   handler: (
-//     parameter: Mango.Merge<Mango.Context<'redirect', any>, T>,
+//     parameter: Merge<Context<'redirect', any>, T>,
 //   ) => ParametersHandlerType | Promise<ParametersHandlerType>,
 // ) {
 //   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {

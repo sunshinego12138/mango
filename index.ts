@@ -1,13 +1,14 @@
-import cron from '@elysiajs/cron'
 import MongoCore from '@mango/core'
 import { InferContext } from 'elysia'
 
-MongoCore.init({
+const app = MongoCore.init({
   businessPath: 'src',
   controllerPath: 'modules',
   name: 'Mango elysia',
   version: '1.0.0',
   swagger: {},
-}).onBeforeHandle(({}) => {
-  
-}).listen(8899)
+})
+  .onBeforeHandle(({}) => {})
+  .listen(8899)
+
+export type Context = InferContext<typeof app>

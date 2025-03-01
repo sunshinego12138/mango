@@ -1,12 +1,12 @@
 import swagger from '@elysiajs/swagger'
-import type { Mango } from '@mango/types'
+import type { App, MangoStartOptions } from '@mango/types'
 
 /**
  * 文档loader
  * @param app
  * @param options
  */
-export const swaggerLoader = (app: Mango.App, options: Mango.MangoStartOptions) => {
+export const swaggerLoader = (app: App, options: MangoStartOptions) => {
   if (options.swagger) {
     app.use(
       swagger({

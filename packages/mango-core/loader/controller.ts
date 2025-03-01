@@ -1,4 +1,4 @@
-import { type Mango } from '@mango/types'
+import type { MangoStartOptions } from '@mango/types'
 import Elysia from 'elysia'
 import { sep, resolve } from 'node:path'
 import { globSync } from 'glob'
@@ -11,7 +11,7 @@ import { isBoolean } from '@mango/utils'
  * @param options
  * @returns
  */
-const controllerLoader = async (options: Mango.MangoStartOptions) => {
+const controllerLoader = async (options: MangoStartOptions) => {
   const app = new Elysia()
   // 获取controllerPath下所有的子控制器并注册
   const modules = globSync(resolve(options.controllerPath as string, `.${sep}**${sep}index.ts`), {

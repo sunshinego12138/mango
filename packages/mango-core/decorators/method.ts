@@ -2,7 +2,7 @@
 import type { ElysiaConfig, HTTPMethod } from 'elysia'
 import 'reflect-metadata'
 import { DecoratorKey } from '..'
-import type { Mango } from '@mango/types'
+import type { ThirdParameterType, WebSocketMethodType } from '@mango/types'
 import type { CronConfig } from '@elysiajs/cron'
 
 // 请求装饰器元数据类型
@@ -11,14 +11,14 @@ export interface MethodMetadata {
   key: string
   customMethod?: string
   // option: ThirdParameterType
-  option: Mango.ThirdParameterType
+  option: ThirdParameterType
   route: string
   fn: Function
 }
 
 export interface WebSocketMetadata {
   key: string
-  option: Mango.WebSocketMethodType
+  option: WebSocketMethodType
   route: string
   fn: Function
 }
@@ -36,7 +36,7 @@ export enum MethodTyp {
 }
 
 const method = (method: any) => {
-  return (route: string, option: Mango.ThirdParameterType = {}) => {
+  return (route: string, option: ThirdParameterType = {}) => {
     return (target: any, key: string, descriptor: PropertyDescriptor) => {
       Reflect.defineMetadata(
         DecoratorKey.Method,
@@ -95,7 +95,7 @@ export const Delete = method(MethodTyp.DELETE)
  * 创建一个自定义请求
  * @param route 路由路径
  */
-export const Custom = (method: HTTPMethod, route: string, option: Mango.ThirdParameterType = {}) => {
+export const Custom = (method: HTTPMethod, route: string, option: ThirdParameterType = {}) => {
   return (target: any, key: string, descriptor: PropertyDescriptor) => {
     Reflect.defineMetadata(
       DecoratorKey.Method,
@@ -127,7 +127,7 @@ export const All = method(MethodTyp.ALL)
  * @returns
  */
 export const WebSocket =
-  (route: string, option: Omit<Mango.WebSocketMethodType, 'message'> = {}) =>
+  (route: string, option: Omit<WebSocketMethodType, 'message'> = {}) =>
   (target: any, key: string, descriptor: PropertyDescriptor) => {
     Reflect.defineMetadata(
       DecoratorKey.WebSocket,

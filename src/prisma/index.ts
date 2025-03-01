@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-export class Prisma extends PrismaClient {
+export class PrismaService extends PrismaClient {
   constructor() {
     super({
       log: ['query'],

@@ -1,8 +1,9 @@
 import { Controller, Delete, Get, Post, Autowired, Put } from '@mango/core'
-import type { Mango } from '@mango/types'
+import type { Context, Merge } from '@mango/types'
 import { DeleteUserSchema, UserSchema } from './user.schema'
 import { t } from 'elysia'
 import { UserService } from './user.service'
+import { PrismaService } from '@/prisma'
 
 @Controller({
   name: '用户',
@@ -15,13 +16,16 @@ export default class UserController {
   @Autowired
   serve: UserService
 
+  @Autowired
+  prisma: PrismaService
+
   @Get('/list', {
     query: t.Partial(UserSchema),
     detail: {
       description: '获取用户列表',
     },
   })
-  async getList({ query }: Mango.Context<'query', typeof UserSchema.static>) {
+  async getList({ query }: Context<'query', typeof UserSchema.static>) {
     return await this.serve.getList(query)
     // return await prisma.user.findMany({
     //   where: {
@@ -36,8 +40,8 @@ export default class UserController {
       description: '添加用户',
     },
   })
-  async add({ prisma, body }: Mango.Context<'body', typeof UserSchema.static>) {
-    const res = await prisma.user.create({
+  async add({ body }: Context<'body', typeof UserSchema.static>) {
+    const res = await this.prisma.user.create({
       data: body,
     })
     return res
@@ -49,8 +53,8 @@ export default class UserController {
       description: '删除用户',
     },
   })
-  async delete({ prisma, params }: Mango.Context<'params', typeof DeleteUserSchema.static>) {
-    const res = await prisma.user.delete({
+  async delete({ params }: Context<'params', typeof DeleteUserSchema.static>) {
+    const res = await this.prisma.user.delete({
       where: {
         id: params.id,
       },
@@ -66,17 +70,16 @@ export default class UserController {
     },
   })
   async update({
-    prisma,
     params,
     body,
-  }: Mango.Merge<
-    Mango.Context,
+  }: Merge<
+    Context,
     {
       body: typeof UserSchema.static
       params: typeof DeleteUserSchema.static
     }
   >) {
-    const res = await prisma.user.update({
+    const res = await this.prisma.user.update({
       where: {
         id: params.id,
       },
