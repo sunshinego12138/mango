@@ -7,6 +7,9 @@ const app = MongoCore.init({
   name: 'Mango elysia',
   version: '1.0.0',
   swagger: {},
+  static: {
+    
+  }
 })
   .onBeforeHandle(({}) => {})
   .listen(8899)

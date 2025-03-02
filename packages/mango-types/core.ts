@@ -46,12 +46,112 @@ export type MangoStartOptions = {
     type: 'common' | 'fancy' | 'commontz'
   }
 
+  /** 静态服务相关 */
+  static?: StaticOption
+
   /**
    * Elysia的配置
    */
   ElysiaOption?: ElysiaConfig<string>
 }
 
+export type StaticOption = {
+  /**
+   * @default "public"
+   *
+   * Asset path to expose as public path
+   */
+  assets?: string
+  /**
+   * @default '/public'
+   *
+   * Path prefix to create virtual mount path for the static directory
+   */
+  prefix?: string
+  /**
+   * @default 1024
+   *
+   * If total files exceed this number,
+   * file will be handled via wildcard instead of static route
+   * to reduce memory usage
+   */
+  staticLimit?: number
+  /**
+   * @default false unless `NODE_ENV` is 'production'
+   *
+   * Should file always be served statically
+   */
+  alwaysStatic?: boolean
+  /**
+   * @default [] `Array<string | RegExp>`
+   *
+   * Array of file to ignore publication.
+   * If one of the patters is matched,
+   * file will not be exposed.
+   */
+  ignorePatterns?: Array<string | RegExp>
+  /**
+   * Indicate if file extension is required
+   *
+   * Only works if `alwaysStatic` is set to true
+   */
+  noExtension?: boolean
+  /**
+   *
+   * When url needs to be decoded
+   *
+   * Only works if `alwaysStatic` is set to false
+   */
+  enableDecodeURI?: boolean
+  /**
+   * Nodejs resolve function
+   */
+  resolve?: (...pathSegments: string[]) => string
+  /**
+   * Set headers
+   */
+  headers?: Record<string, string> | undefined
+  /**
+   * @default false
+   *
+   * If set to true, browser caching will be disabled
+   */
+  noCache?: boolean
+  /**
+   * @default public
+   *
+   * directive for Cache-Control header
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control#directives
+   */
+  directive?:
+    | 'public'
+    | 'private'
+    | 'must-revalidate'
+    | 'no-cache'
+    | 'no-store'
+    | 'no-transform'
+    | 'proxy-revalidate'
+    | 'immutable'
+  /**
+   * @default 86400
+   *
+   * Specifies the maximum amount of time in seconds, a resource will be considered fresh.
+   * This freshness lifetime is calculated relative to the time of the request.
+   * This setting helps control browser caching behavior.
+   * A `maxAge` of 0 will prevent caching, requiring requests to validate with the server before use.
+   */
+  maxAge?: number | null
+  /**
+   *
+   */
+  /**
+   * @default true
+   *
+   * Enable serving of index.html as default / route
+   */
+  indexHTML?: boolean
+}
 // /** app实例的类型 */
 // export type App = AppType
 // /** 每个请求方法参数的类型 */

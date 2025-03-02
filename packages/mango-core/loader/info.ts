@@ -29,6 +29,9 @@ export const infoLoader = (app: App, options: MangoStartOptions) => {
     if (options.swagger) {
       console.log(`🐑 Swagger UI: ${server?.url}${options.swagger.path || 'swagger'}`)
     }
+    if (options.static) {
+      console.log(`🐢 Static: ${server?.url}${options.static.prefix?.replace('/', '') || 'public'}`)
+    }
     console.log(`🦊【${options.name}】running at ${server?.url}`)
   })
 }

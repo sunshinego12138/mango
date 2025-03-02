@@ -2,20 +2,29 @@
   "name": "@mango/extends",
   "version": "0.0.1",
   "type": "module",
-  "scripts": {
-    "build": "tsup --config ../tsup.config.ts"
+  "description": "The plugins for Mango(Mango的插件)",
+  "license": "MIT",
+  "author": {
+    "name": "SunshineGo",
+    "email": "2943102883@qq.com",
+    "url": "https://github.com/sunshinego12138"
   },
-  "main": "./index.cjs",
-  "module": "./index.mjs",
-  "types": "./index.d.ts",
-  "typings": "./index.d.cts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./index.d.ts",
-        "./index.d.cts"
-      ]
-    }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunshinego12138/mango.git"
+  },
+  "homepage": "https://sunshinego12138.github.io/mango-docs",
+  "keywords": [
+    "typescript",
+    "framework",
+    "web",
+    "bun",
+    "elysia",
+    "mango",
+    "plugin"
+  ],
+  "scripts": {
+    "build": "tsup --config ../tsup.config.ts && bun ../buildSuccess.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
