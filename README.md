@@ -27,7 +27,7 @@
 ## 安装
 
 ```bash
-git clone xxx # 该项目地址
+bun add mango-core mango-types
 ```
 
 ## 快速开始
