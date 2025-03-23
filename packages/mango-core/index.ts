@@ -1,15 +1,17 @@
 import cors from '@elysiajs/cors'
-import type { MangoStartOptions } from '@mango/types'
-import { loadEnv, omit } from '@mango/utils'
-import Elysia from 'elysia'
-import { Logestic } from 'logestic'
 import staticPlugin from '@elysiajs/static'
+import type { MangoStartOptions } from '@mango/types'
+import { loadEnv } from './utils'
+import Elysia from 'elysia'
+import { existsSync, mkdirSync } from 'fs'
+import { resolve } from 'path'
 import controllerLoader from './loader/controller'
 import { infoLoader } from './loader/info'
 import optionsInit from './loader/options'
 import { swaggerLoader } from './loader/swagger'
-import { existsSync, mkdirSync } from 'fs'
-import { join, resolve } from 'path'
+import { Logger } from './extends/logger'
+export * from './extends/logger'
+export * from './utils'
 
 /**
  * 初始化框架
@@ -35,6 +37,13 @@ export const init = (options: MangoStartOptions) => {
         },
       }
     })
+    .onError({ as: 'global' }, ({ code, error, request }) => {
+      return {
+        url: request.url,
+        method: request.method,
+        ...(error instanceof Error ? { ...error } : { message: error }),
+      }
+    })
   // serveLoader(options)
   // 输出启动信息
   infoLoader(app, options)
@@ -45,8 +54,11 @@ export const init = (options: MangoStartOptions) => {
     app.use(cors())
   }
   // 是否开启日志
-  if (options.logger?.type) {
-    app.use(Logestic.preset(options.logger.type, omit(options.logger, ['type'])))
+  // if (options.logger?.type) {
+  //   app.use(Logestic.preset(options.logger.type, omit(options.logger, ['type'])))
+  // }
+  if (options.logger) {
+    app.use(Logger)
   }
   // 是否开启静态文件服务
   if (options.static) {

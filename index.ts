@@ -1,4 +1,4 @@
-import MongoCore from '@mango/core'
+import MongoCore, { logger } from '@mango/core'
 import { InferContext } from 'elysia'
 
 const app = MongoCore.init({
@@ -7,9 +7,8 @@ const app = MongoCore.init({
   name: 'Mango elysia',
   version: '1.0.0',
   swagger: {},
-  static: {
-    
-  }
+  static: {},
+  logger: true
 })
   .onBeforeHandle(({}) => {})
   .listen(8899)

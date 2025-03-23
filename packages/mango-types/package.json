@@ -1,6 +1,6 @@
 {
   "name": "@mango/types",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "type": "module",
   "description": "The type for Mango（Mango的类型）",
   "license": "MIT",
@@ -27,7 +27,8 @@
     "build": "tsup --config ../tsup.config.ts && bun ../buildSuccess.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@elysiajs/swagger": "1.2.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0",

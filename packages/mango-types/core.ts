@@ -1,7 +1,6 @@
 import MongoFunc from '@mango/core'
-import { type ElysiaSwaggerConfig } from '@elysiajs/swagger'
+import type { ElysiaSwaggerConfig } from '@elysiajs/swagger'
 import type { InferContext, InferHandler, ElysiaConfig } from 'elysia'
-import type { LogesticOptions } from 'logestic'
 
 export type MangoStartOptions = {
   /** 应用名称
@@ -34,17 +33,18 @@ export type MangoStartOptions = {
   /**
    * swagger文档配置
    */
-  swagger?: Omit<ElysiaSwaggerConfig, 'path'> & {
-    path?: string
-  }
+  swagger?: ElysiaSwaggerConfig
+  // swagger?: Omit<ElysiaSwaggerConfig, 'path'> & {
+  //   path?: string
+  // }
   /**
    * 是否启用日志
-   * 有三种样式选择
    */
   // logger?: 'common' | 'fancy' | 'commontz'
-  logger?: LogesticOptions & {
-    type: 'common' | 'fancy' | 'commontz'
-  }
+  logger?: boolean
+  // logger?: LogesticOptions & {
+  //   type: 'common' | 'fancy' | 'commontz'
+  // }
 
   /** 静态服务相关 */
   static?: StaticOption

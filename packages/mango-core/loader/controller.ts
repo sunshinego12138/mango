@@ -1,10 +1,11 @@
 import type { MangoStartOptions } from '@mango/types'
-import Elysia from 'elysia'
+import Elysia, { type ElysiaConfig } from 'elysia'
 import { sep, resolve } from 'node:path'
 import { globSync } from 'glob'
-import { DecoratorKey, type CronMetadata, type MethodMetadata, type WebSocketMetadata } from '..'
+import { DecoratorKey, type CronMetadata, type MethodMetadata, type ProxyOption, type WebSocketMetadata } from '..'
 import { cron as cronExtends } from '@elysiajs/cron'
-import { isBoolean } from '@mango/utils'
+import { isBoolean } from '../utils'
+import { ProxyLoader } from './proxy'
 
 /**
  * 加载controller
@@ -23,6 +24,29 @@ const controllerLoader = async (options: MangoStartOptions) => {
     // Controller必须默认导出并且在index.ts中才生效
     if (module.default) {
       let controller = Reflect.getMetadata(DecoratorKey.Controller, module.default)
+      let proxy = Reflect.getMetadata(DecoratorKey.Proxy, module.default)
+
+      // 注册代理转发
+      if (proxy && proxy.key === DecoratorKey.Proxy) {
+        const instance = new module.default()
+        const { proxyURL, headers, ...option }: ElysiaConfig<string> & ProxyOption = proxy.option
+        const router = new Elysia({
+          ...option,
+          prefix: '',
+        })
+        const nothing = () => {}
+        ProxyLoader(
+          router,
+          option.prefix || '',
+          { proxyURL, headers },
+          {
+            beforeHandle: instance.beforeHandle.bind(instance) || nothing,
+            afterHandle: instance.afterHandle.bind(instance) || nothing,
+            requestHandle: instance.requestHandle.bind(instance) || nothing
+          },
+        )
+        app.use(router)
+      }
 
       // 注册控制器
       // 需要被Controller装饰器装饰的类才会注册到elysia实例上
@@ -39,13 +63,15 @@ const controllerLoader = async (options: MangoStartOptions) => {
         ) {
           // 添加请求前置处理
           router.onBeforeHandle(async (parameter: any) => {
+            // 避免proxy装饰器代理时，stream被提前消费掉
+            const data = parameter
             let res = {}
             const str = controllerBeforeHandler.handler.toString()
             if (str.includes('async') || str.includes('Promise.resolve')) {
               // 是promise的话
-              res = await controllerBeforeHandler.handler(parameter)
+              res = await controllerBeforeHandler.handler(data)
             } else {
-              res = controllerBeforeHandler.handler(parameter)
+              res = controllerBeforeHandler.handler(data)
             }
             if (isBoolean(res)) {
               if (!res) {

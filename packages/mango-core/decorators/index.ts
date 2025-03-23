@@ -15,10 +15,13 @@ export enum DecoratorKey {
   /** 定时任务 */
   Cron = 'cron',
   /** controller的装饰器 */
-  BeforeHandle = 'beforeHandle'
+  BeforeHandle = 'beforeHandle',
+  /** 转发代理 */
+  Proxy = 'proxy'
 }
 export * from './controller'
 export * from './method'
 export * from './server'
 export * from './cron'
 export * from './custom'
+export * from './proxy'

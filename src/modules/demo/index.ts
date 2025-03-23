@@ -12,6 +12,7 @@ import {
   WebSocket,
   Cron,
   createParameterDecorator,
+  Proxy
 } from '@mango/core'
 import { paramsSchema, querySchema } from './schema'
 import { TestServe } from './serve'
@@ -63,6 +64,7 @@ export default class DemoController {
 
   @Get('/param/:id/:name', {
     params: paramsSchema,
+    
   })
   param(param: Context<'params', typeof paramsSchema.static>) {
     return param.params
@@ -78,17 +80,17 @@ export default class DemoController {
     ws.send(message)
   }
 
-  @Cron({
-    name: 'task1',
-    pattern: '*/20 * * * * *',
-  })
-  cronTask() {
-    console.log('任务1')
-  }
+  // @Cron({
+  //   name: 'task1',
+  //   pattern: '*/20 * * * * *',
+  // })
+  // cronTask() {
+  //   console.log('任务1')
+  // }
 
-  @Get('/stop/task')
-  stopTask({ stopCronTask }: Context) {
-    stopCronTask('task1')
-    return '停止任务1'
-  }
+  // @Get('/stop/task')
+  // stopTask({ stopCronTask }: Context) {
+  //   stopCronTask('task1')
+  //   return '停止任务1'
+  // }
 }

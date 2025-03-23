@@ -48,3 +48,12 @@ export enum HttpStatus {
   GATEWAY_TIMEOUT = 504,
   HTTP_VERSION_NOT_SUPPORTED = 505,
 }
+
+export function JsonResponse(data: Record<string, any>, code: number) {
+  return new Response(JSON.stringify(data), {
+    status: code,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}

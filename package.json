@@ -33,13 +33,14 @@
     "@elysiajs/static": "^1.2.0",
     "@elysiajs/swagger": "^1.2.0",
     "@mango/core": "workspace: *",
-    "@mango/extends": "workspace: *",
     "@mango/types": "workspace: *",
-    "@mango/utils": "workspace: *",
     "@prisma/client": "^6.1.0",
+    "chalk": "^5.4.1",
     "elysia": "latest",
     "glob": "^11.0.1",
     "logestic": "^1.2.4",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   }
 }

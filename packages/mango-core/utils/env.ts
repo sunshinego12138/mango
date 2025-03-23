@@ -21,5 +21,3 @@ export const loadEnv = () => {
     },
   }
 }
-
-export default loadEnv

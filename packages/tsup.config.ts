@@ -20,11 +20,20 @@ export default defineConfig((options) => ({
     'elysia',
     'prisma',
     '@prisma/client',
+    '@mango/core',
+    'winston-daily-rotate-file',
   ],
+  // noExternal: ['elysia', '@elysiajs/swagger', 'logestic'],
+  // noExternal: [/@elysiajs\/swagger/],
   esbuildOptions(opt) {
-    // 添加 Bun 运行时支持
-    opt.define = {
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+    // 完全禁用环境变量替换
+    options.define = {
+      'process.env.NODE_ENV': '"__dynamic_env__"', // 使用占位符
+    }
+    // 保留 process.env 的运行时访问
+    options.platform = 'neutral' // 禁用 Node 平台特性
+    options.banner = {
+      js: 'const process = { env: {...process.env} };', // 保留运行时环境变量
     }
   },
   // 自动复制 package.json 文件

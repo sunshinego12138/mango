@@ -3,7 +3,7 @@ import Elysia from 'elysia'
 import { sep, resolve } from 'node:path'
 import { globSync } from 'glob'
 import { DecoratorKey, type MethodMetadata } from '..'
-import { isClass } from '@mango/utils'
+import { isClass } from '../utils'
 
 /**
  * 加载被注入的serve

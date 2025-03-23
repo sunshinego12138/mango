@@ -167,8 +167,7 @@ export default class DemoController {
 ```typescript
 import { Controller, Get, Post, Put, Delete, All, Option, Patch, Custom} from 'mango-core'
 import type { Context } from 'mango-types'
-import { createParameterDecorator } from 'mango-core'
-import { HttpStatus, JsonResponse } from 'mango-utils'
+import { createParameterDecorator, HttpStatus, JsonResponse } from 'mango-core'
 
 const test = createParameterDecorator<{
   body: any

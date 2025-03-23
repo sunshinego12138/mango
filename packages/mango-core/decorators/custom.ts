@@ -1,5 +1,5 @@
 import type { Context, Merge } from '@mango/types'
-import { isBoolean, isPromise } from '@mango/utils'
+import { isBoolean, isPromise } from '../utils'
 import { DecoratorKey } from '..'
 type ParametersHandlerType = boolean | Record<string, any>
 /**
