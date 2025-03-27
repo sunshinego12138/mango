@@ -38,7 +38,7 @@ const controllerLoader = async (options: MangoStartOptions) => {
         ProxyLoader(
           router,
           option.prefix || '',
-          { proxyURL, headers },
+          { proxyURL, headers, prefix: option.prefix || '/*' },
           {
             beforeHandle: instance.beforeHandle.bind(instance) || nothing,
             afterHandle: instance.afterHandle.bind(instance) || nothing,

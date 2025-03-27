@@ -5,16 +5,14 @@ import { isArray, isBoolean } from '../utils'
 import { logger } from '../extends/logger'
 
 export function ProxyLoader(app: Elysia, path: string | string[], option: ProxyOption, funcData: ProxyInstance = {}) {
-  
+  path = path.length ? path : '/*'
   if (isArray(path)) {
-    ; (path as string[]).forEach((_path) => {
-      _path = _path.length ? _path : '/*'
+    ;(path as string[]).forEach((_path) => {
       app.all(_path, async ({ request, path }) => {
         return await proxyFunc(request, option, path, funcData)
       })
     })
   } else {
-    path = path.length ? path : '/*'
     app.all(path as string, async ({ request, path }) => {
       return await proxyFunc(request, option, path, funcData)
     })
@@ -22,11 +20,10 @@ export function ProxyLoader(app: Elysia, path: string | string[], option: ProxyO
 }
 
 async function proxyFunc(request: Request, option: ProxyOption, path: string, funcData: ProxyInstance) {
-  const TARGET_SERVER = option.proxyURL.endsWith('/') ? option.proxyURL : `${option.proxyURL}/`
-  let _path = path.replace((option.prefix as string)!.replace('*', ''), '')
+  const TARGET_SERVER = option.proxyURL
   const _headers = option.headers || {}
   const url = new URL(request.url)
-  const targetUrl = new URL(_path, TARGET_SERVER)
+  const targetUrl = new URL(path, TARGET_SERVER)
   targetUrl.search = url.search
 
   // 流式处理的上下文对象
